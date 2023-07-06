@@ -3,6 +3,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { solarizedlight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import styled from 'styled-components';
 import MarkdownEditor from "./markdown";
+import RatingComponent from "./rating";
 
 const CodeContainer = styled.div`
   display: flex;
@@ -34,7 +35,8 @@ function App() {
           </SyntaxHighlighter>
         </CodeBlock>
       </CodeContainer>
-        <MarkdownEditor hint={hint} setHint={setHint} />
+      <MarkdownEditor hint={hint} setHint={setHint} />
+      <RatingComponent />
     </div>
   );
 }
