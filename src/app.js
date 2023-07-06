@@ -2,8 +2,7 @@ import React from 'react';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { solarizedlight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import styled from 'styled-components';
-import TextField from '@mui/material/TextField';
-import ReactMarkdown from 'react-markdown';
+import MarkdownEditor from "./markdown";
 
 const CodeContainer = styled.div`
   display: flex;
@@ -21,10 +20,6 @@ function App() {
   const incorrectCode = `def add(a, b):\n  return a - b`;
   const [hint, setHint] = React.useState("Change the '-' operator to '+' in the function body to correct the code.");
 
-  const handleHintChange = (event) => {
-    setHint(event.target.value);
-  };
-
   return (
     <div>
       <CodeContainer>
@@ -39,22 +34,7 @@ function App() {
           </SyntaxHighlighter>
         </CodeBlock>
       </CodeContainer>
-     <form noValidate autoComplete="off">
-        <div>
-          <TextField
-            id="outlined-multiline-static"
-            label="Hint"
-            multiline
-            rows={4}
-            defaultValue={hint}
-            variant="outlined"
-            onChange={handleHintChange}
-          />
-        </div>
-      </form>
-      <ReactMarkdown>
-        {hint}
-      </ReactMarkdown>
+        <MarkdownEditor hint={hint} setHint={setHint} />
     </div>
   );
 }
