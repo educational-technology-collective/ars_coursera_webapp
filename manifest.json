@@ -1,0 +1,50 @@
+{
+  "short_name": "Reflections",
+  "name": "Autograder Reflection System",
+  "description": "This plugin provides side by side code comparison for student to reflect on.",
+  "maintainer": {
+    "name": "Mai Xu",
+    "email": "maixu@umich.edu"
+  },
+  "version": "0.1.0",
+  "sandbox": "allow-modals allow-same-origin",
+  "configurationExamples": [
+    {
+      "configuration": {
+        "COURSE_HASHED_USER_ID": "%COURSE_HASHED_USER_ID%",
+        "COURSE_ID": "%COURSE_ID%",
+        "PLUGIN_TYPE": "performance"
+      },
+      "name": "performance config",
+      "description": "config for the performance plugin"
+    },
+    {
+      "configuration": {
+        "COURSE_HASHED_USER_ID": "%COURSE_HASHED_USER_ID%",
+        "COURSE_ID": "%COURSE_ID%",
+        "PLUGIN_TYPE": "mastery"
+      },
+      "name": "mastery config",
+      "description": "config for the mastery plugin"
+    }
+  ],
+  "macros": ["COURSE_HASHED_USER_ID", "COURSE_ID"],
+  "authorizations": {
+    "storedValues": {
+      "performanceConfig": {
+        "prefix": "performanceConfig",
+        "scope": "PLUGIN"
+      },
+      "masteryConfig": {
+        "prefix": "masteryConfig",
+        "scope": "PLUGIN"
+      }
+    }
+  },
+  "actionTypes": ["GET_SESSION_CONFIGURATION", "GET_STORED_VALUES", "SET_STORED_VALUES"],
+  "accessibility": {
+    "mobileCompatibility": {
+      "supportsTouch": false
+    }
+  }
+}
