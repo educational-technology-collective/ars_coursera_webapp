@@ -16,9 +16,52 @@ const CodeBlock = styled.div`
 `;
 
 function App() {
-  // const classes = useStyles();
-  const correctCode = `def add(a, b):\n  return a + b`;
-  const incorrectCode = `def add(a, b):\n  return a - b`;
+  const correctCode =     "def student_grades():\n" +
+    "    import re\n" +
+    "    with open (\"assets/grades.txt\", \"r\") as file:\n" +
+    "        grades = file.read()\n" +
+    "\n" +
+    "    ### FIX CODE BELOW\n" +
+    "    pattern = \"\"\"(\\w+)\"\"\"\n" +
+    "    matches = re.findall(pattern,grades)\n" +
+    "    ### FIX CODE ABOVE\n" +
+    "        \n" +
+    "        \n" +
+    "    ### BEGIN SOLUTION\n" +
+    "    pattern = re.compile(r'\\w+\\s\\w+(?=: B)')\n" +
+    "    matches = re.findall(pattern,grades)\n" +
+    "\n" +
+    "    # Alternative answers: \n" +
+    "    # pattern = \"\"\"(?P<test>\\w+\\s+\\w+): B\"\"\"\n" +
+    "    \n" +
+    "    ### END SOLUTION   \n" +
+    "\n" +
+    "    return matches  \n" +
+    "    \n";
+
+  const incorrectCode =     "def logs():\n" +
+    "    import re\n" +
+    "    with open(\"assets/logdata.txt\", \"r\") as file:\n" +
+    "        logdata = file.read()\n" +
+    "    \n" +
+    "        \n" +
+    "    ### FIX CODE BELOW    \n" +
+    "    pattern = \"(?P<host>[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)\n" +
+    "    (-) (?P<name>[a-z]+[0-9]*)\n" +
+    "    (?P<time>[[0-9]*/[A-Z]+[a-z]*/[0-9]*:[0-9]+:[0-9]*:[0-9]* -[0-9]*])\n" +
+    "    (?P<request>\\\"[A-Z]* (.+?) (.+?)) \"\n" +
+    "\n" +
+    "    logs = []\n" +
+    "    ### FIX CODE ABOVE\n" +
+    "\n" +
+    "    for i in re.finditer(pattern, logdata):\n" +
+    "        logs.append(i.groupdict())\n" +
+    "\n" +
+    "    # YOUR CODE HERE\n" +
+    "\n" +
+    "    return logs\n" +
+    "\n" +
+    "logs()";
   const [hint, setHint] = React.useState("Change the '-' operator to '+' in the function body to correct the code.");
 
   return (
