@@ -1,18 +1,26 @@
 import React from 'react';
+import axios from 'axios';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { solarizedlight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import styled from 'styled-components';
+import Button from '@mui/material/Button';
 import MarkdownEditor from "./markdown";
-import RatingComponent from "./rating";
+import RatingComponent from "./rating"
 
 const CodeContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: stretch;
 `;
 
 const CodeBlock = styled.div`
   width: 45%;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto;
+  height: 500px;
 `;
 
 function App() {
@@ -62,7 +70,25 @@ function App() {
     "    return logs\n" +
     "\n" +
     "logs()";
+
   const [hint, setHint] = React.useState("Change the '-' operator to '+' in the function body to correct the code.");
+
+  const [rating, setRating] = React.useState(0);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    axios.post('http://your-api-url.com/endpoint', {
+      hint,
+      rating
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  };
 
   return (
     <div>
@@ -78,8 +104,17 @@ function App() {
           </SyntaxHighlighter>
         </CodeBlock>
       </CodeContainer>
-      <MarkdownEditor hint={hint} setHint={setHint} />
-      <RatingComponent />
+      <form onSubmit={handleSubmit}>
+        <MarkdownEditor hint={hint} setHint={setHint} />
+        <RatingComponent rating={rating} setRating={setRating} />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
+          Submit
+        </Button>
+      </form>
     </div>
   );
 }
