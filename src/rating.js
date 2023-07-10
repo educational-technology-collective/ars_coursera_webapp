@@ -2,38 +2,34 @@ import React from "react";
 import IconButton from '@mui/material/IconButton';
 import MoodIcon from '@mui/icons-material/Mood';
 import MoodBadIcon from '@mui/icons-material/MoodBad';
-import Slider from '@mui/material/Slider';
 import Rating from '@mui/material/Rating';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 function RatingComponent() {
+    const [ifSatisfied, setIfSatisfied] = React.useState(false); // [1
     const [rating, setRating] = React.useState(0);
-    const [sliderValue, setSliderValue] = React.useState(0);
-
-    const handleSliderChange = (event, newValue) => {
-        setSliderValue(newValue);
-    };
 
     const handleRatingChange = (event, newValue) => {
         setRating(newValue);
     };
 
     return (
-        <div>
-            <div>
-                <IconButton color="primary" onClick={() => alert('Happy face clicked')}>
+        <Grid container spacing={2}>
+            <Grid item>
+                <IconButton color="primary" onClick={() => setIfSatisfied(true)}>
                     <MoodIcon />
                 </IconButton>
-                <IconButton color="secondary" onClick={() => alert('Sad face clicked')}>
+                <IconButton color="secondary" onClick={() => setIfSatisfied(false)}>
                     <MoodBadIcon />
                 </IconButton>
-            </div>
-            <div>
-                <Slider value={sliderValue} onChange={handleSliderChange} aria-labelledby="input-slider" />
-            </div>
-            <div>
+            </Grid>
+            <Grid item>
+                <Box marginTop={1.1}>
                 <Rating name="simple-controlled" value={rating} onChange={handleRatingChange} />
-            </div>
-        </div>
+                </Box>
+            </Grid>
+        </Grid>
     )
 }
 

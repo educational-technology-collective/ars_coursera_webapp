@@ -9,7 +9,6 @@ function MarkdownEditor({hint, setHint}) {
         value={hint}
         onChange={setHint}
       />
-        <MDEditor.Markdown source={hint} style={{ whiteSpace: 'pre-wrap'}} />
     </div>
   );
 }
