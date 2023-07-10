@@ -1,11 +1,22 @@
 import React from 'react';
 import axios from 'axios';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { solarizedlight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
+import {solarizedlight} from 'react-syntax-highlighter/dist/esm/styles/prism';
 import styled from 'styled-components';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogActions from '@mui/material/DialogActions';
 import MarkdownEditor from "./markdown";
 import RatingComponent from "./rating"
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 
 const CodeContainer = styled.div`
   display: flex;
@@ -20,103 +31,134 @@ const CodeBlock = styled.div`
   flex-direction: column;
   justify-content: space-between;
   overflow: auto;
-  height: 500px;
+  height: 350px;
 `;
 
 function App() {
-  const correctCode =     "def student_grades():\n" +
-    "    import re\n" +
-    "    with open (\"assets/grades.txt\", \"r\") as file:\n" +
-    "        grades = file.read()\n" +
-    "\n" +
-    "    ### FIX CODE BELOW\n" +
-    "    pattern = \"\"\"(\\w+)\"\"\"\n" +
-    "    matches = re.findall(pattern,grades)\n" +
-    "    ### FIX CODE ABOVE\n" +
-    "        \n" +
-    "        \n" +
-    "    ### BEGIN SOLUTION\n" +
-    "    pattern = re.compile(r'\\w+\\s\\w+(?=: B)')\n" +
-    "    matches = re.findall(pattern,grades)\n" +
-    "\n" +
-    "    # Alternative answers: \n" +
-    "    # pattern = \"\"\"(?P<test>\\w+\\s+\\w+): B\"\"\"\n" +
-    "    \n" +
-    "    ### END SOLUTION   \n" +
-    "\n" +
-    "    return matches  \n" +
-    "    \n";
+    const correctCode = "def student_grades():\n" +
+        "    import re\n" +
+        "    with open (\"assets/grades.txt\", \"r\") as file:\n" +
+        "        grades = file.read()\n" +
+        "\n" +
+        "    ### BEGIN SOLUTION\n" +
+        "    pattern = re.compile(r'\\w+\\s\\w+(?=: B)')\n" +
+        "    matches = re.findall(pattern,grades)\n" +
+        "\n" +
+        "    # Alternative answers: \n" +
+        "    # pattern = \"\"\"(?P<test>\\w+\\s+\\w+): B\"\"\"\n" +
+        "    \n" +
+        "    ### END SOLUTION   \n" +
+        "\n" +
+        "    return matches  \n" +
+        "    \n";
 
-  const incorrectCode =     "def logs():\n" +
-    "    import re\n" +
-    "    with open(\"assets/logdata.txt\", \"r\") as file:\n" +
-    "        logdata = file.read()\n" +
-    "    \n" +
-    "        \n" +
-    "    ### FIX CODE BELOW    \n" +
-    "    pattern = \"(?P<host>[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)\n" +
-    "    (-) (?P<name>[a-z]+[0-9]*)\n" +
-    "    (?P<time>[[0-9]*/[A-Z]+[a-z]*/[0-9]*:[0-9]+:[0-9]*:[0-9]* -[0-9]*])\n" +
-    "    (?P<request>\\\"[A-Z]* (.+?) (.+?)) \"\n" +
-    "\n" +
-    "    logs = []\n" +
-    "    ### FIX CODE ABOVE\n" +
-    "\n" +
-    "    for i in re.finditer(pattern, logdata):\n" +
-    "        logs.append(i.groupdict())\n" +
-    "\n" +
-    "    # YOUR CODE HERE\n" +
-    "\n" +
-    "    return logs\n" +
-    "\n" +
-    "logs()";
+    const incorrectCode = "def logs():\n" +
+        "    import re\n" +
+        "    with open(\"assets/logdata.txt\", \"r\") as file:\n" +
+        "        logdata = file.read()\n" +
+        "    \n" +
+        "    ### FIX CODE BELOW    \n" +
+        "    pattern = \"(?P<host>[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)\n" +
+        "    (-) (?P<name>[a-z]+[0-9]*)\n" +
+        "    (?P<time>[[0-9]*/[A-Z]+[a-z]*/[0-9]*:[0-9]+:[0-9]*:[0-9]* -[0-9]*])\n" +
+        "    (?P<request>\\\"[A-Z]* (.+?) (.+?)) \"\n" +
+        "\n" +
+        "    logs = []\n" +
+        "    ### FIX CODE ABOVE\n" +
+        "\n" +
+        "    for i in re.finditer(pattern, logdata):\n" +
+        "        logs.append(i.groupdict())\n" +
+        "\n" +
+        "    # YOUR CODE HERE\n" +
+        "\n" +
+        "    return logs\n" +
+        "\n" +
+        "logs()";
 
-  const [hint, setHint] = React.useState("Change the '-' operator to '+' in the function body to correct the code.");
+    const [hint, setHint] = React.useState("Change the '-' operator to '+' in the function body to correct the code.");
 
-  const [rating, setRating] = React.useState(0);
+    const [rating, setRating] = React.useState(0);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+    const [open, setOpen] = React.useState(false);
 
-    axios.post('http://your-api-url.com/endpoint', {
-      hint,
-      rating
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  };
+    React.useEffect(() => {
+        const firstVisit = localStorage.getItem('firstVisit');
+        if (!firstVisit) {
+            setOpen(true);
+            localStorage.setItem('firstVisit', '1');
+        }
+    }, []);
 
-  return (
-    <div>
-      <CodeContainer>
-        <CodeBlock>
-          <SyntaxHighlighter language="python" style={solarizedlight}>
-            {correctCode}
-          </SyntaxHighlighter>
-        </CodeBlock>
-        <CodeBlock>
-          <SyntaxHighlighter language="python" style={solarizedlight}>
-            {incorrectCode}
-          </SyntaxHighlighter>
-        </CodeBlock>
-      </CodeContainer>
-      <form onSubmit={handleSubmit}>
-        <MarkdownEditor hint={hint} setHint={setHint} />
-        <RatingComponent rating={rating} setRating={setRating} />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-        >
-          Submit
-        </Button>
-      </form>
-    </div>
-  );
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        axios.post('http://your-api-url.com/endpoint', {
+            hint,
+            rating
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
+    return (
+        <div>
+            <Dialog
+                open={open}
+                onClose={() => setOpen(false)}
+            >
+                <DialogTitle>Welcome to the Code Review Page!</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Here you can compare correct solutions to incorrect
+                        ones, write hints to improve the incorrect code and rate
+                        the level of difficulty of the problem. Start by
+                        analyzing the code blocks, then proceed to write a
+                        helpful hint and finally rate the difficulty before
+                        submitting.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpen(false)}>
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            <Typography variant="h4" component="h2" align='center'>
+                Solution | Student Code
+            </Typography>
+            <CodeContainer>
+                <CodeBlock>
+                    <SyntaxHighlighter language="python" style={solarizedlight}>
+                        {correctCode}
+                    </SyntaxHighlighter>
+                </CodeBlock>
+                <CodeBlock>
+                    <SyntaxHighlighter language="python" style={solarizedlight}>
+                        {incorrectCode}
+                    </SyntaxHighlighter>
+                </CodeBlock>
+            </CodeContainer>
+            <Typography variant="h4" component="h2" align='center'>
+                Hint
+            </Typography>
+            <form onSubmit={handleSubmit}>
+                <MarkdownEditor hint={hint} setHint={setHint}/>
+                <RatingComponent rating={rating} setRating={setRating}/>
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                >
+                    Submit
+                </Button>
+            </form>
+        </div>
+    );
 }
 
 export default App;
