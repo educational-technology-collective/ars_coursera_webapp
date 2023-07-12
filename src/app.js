@@ -15,6 +15,7 @@ import DialogActions from '@mui/material/DialogActions';
 import MarkdownEditor from "./markdown";
 import RatingComponent from "./rating"
 import LoginButton from "./login";
+import LogoutButton from "./logout";
 
 const CodeContainer = styled.div`
   display: flex;
@@ -76,6 +77,7 @@ function App() {
         <Stack spacing={2}>
             <Item>
                 <LoginButton/>
+                <LogoutButton/>
             </Item>
             <Item>
                 <Dialog
