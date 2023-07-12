@@ -14,6 +14,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import MarkdownEditor from "./markdown";
 import RatingComponent from "./rating"
+import LoginButton from "./login";
 
 const CodeContainer = styled.div`
   display: flex;
@@ -36,7 +37,14 @@ function App() {
 
     const incorrectCode = "def logs():\n" + "    import re\n" + "    with open(\"assets/logdata.txt\", \"r\") as file:\n" + "        logdata = file.read()\n" + "    \n" + "    ### FIX CODE BELOW    \n" + "    pattern = \"(?P<host>[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)\n" + "    (-) (?P<name>[a-z]+[0-9]*)\n" + "    (?P<time>[[0-9]*/[A-Z]+[a-z]*/[0-9]*:[0-9]+:[0-9]*:[0-9]* -[0-9]*])\n" + "    (?P<request>\\\"[A-Z]* (.+?) (.+?)) \"\n" + "\n" + "    logs = []\n" + "    ### FIX CODE ABOVE\n" + "\n" + "    for i in re.finditer(pattern, logdata):\n" + "        logs.append(i.groupdict())\n" + "\n" + "    # YOUR CODE HERE\n" + "\n" + "    return logs\n" + "\n" + "logs()";
 
-    const [hint, setHint] = React.useState("Change the '-' operator to '+' in the function body to correct the code.");
+    const [hint, setHint] = React.useState("To fix the regular expression pattern, consider the following:\n" +
+        "- The host field should match an IP address, which consists of digits and periods. *Check if your pattern matches this requirement.*\n" +
+        "- The hyphen in the log entry is represented by \"-\". *Make sure you are matching this character correctly.*\n" +
+        "- The username field can contain lowercase letters and numbers. *Verify if your pattern covers this condition.*\n" +
+        "- The time field follows a specific format, including the date, time, and time zone. *Ensure that your pattern captures this format accurately.*\n" +
+        "- The request field starts with an uppercase HTTP method followed by a space. *Confirm if your pattern matches this pattern consistently.*\n" +
+        "\n" +
+        "Review the documentation for regular expressions and focus on the correct syntax and patterns for each field. Experiment with different components of the pattern and test them against the log entries to ensure accurate matching.\n");
 
     const [rating, setRating] = React.useState(0);
 
@@ -66,6 +74,9 @@ function App() {
 
     return (
         <Stack spacing={2}>
+            <Item>
+                <LoginButton/>
+            </Item>
             <Item>
                 <Dialog
                     open={open}
