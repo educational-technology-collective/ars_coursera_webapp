@@ -8,7 +8,7 @@ function ToggleButtonGroup({ showIntro, setShowIntro, showChatGPTHint, setShowCh
                 Toggle Introduction
             </Button>
             <Button onClick={() => setShowChatGPTHint(!showChatGPTHint)}>
-                Toggle ChatGPT Hint
+                Toggle ChatGPT Hint / Mistake List
             </Button>
         </div>
     );
