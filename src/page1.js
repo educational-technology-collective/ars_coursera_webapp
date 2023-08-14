@@ -1,41 +1,17 @@
 import React from 'react';
-import axios from 'axios';
-import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
-import {solarizedlight} from 'react-syntax-highlighter/dist/esm/styles/prism';
-import styled from 'styled-components';
 import Stack from '@mui/material/Stack';
 import Item from '@mui/material/Grid';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
-import MarkdownEditor from "./utils/markdown";
-import {useSpring, animated} from 'react-spring';
-
-const CodeContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: stretch;
-`;
-
-const CodeBlock = styled.div`
-  width: 45%;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  overflow: auto;
-  height: 350px;
-`;
-
-const ToggleButtons = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-`;
+import ToggleButtonGroup from './components/ToggleButtonGroup';
+import CodeDisplay from './components/CodeDisplay';
+import ChatGPTHint from './components/ChatGPTHint';
+import EditorForm from './components/EditorForm';
+import {submitFeedback} from './utils/api';
 
 function Page1() {
     const [showIntro, setShowIntro] = React.useState(true);
@@ -70,110 +46,52 @@ function Page1() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        axios.post('http://your-api-url.com/endpoint', {
-            hint, rating
-        })
-            .then(function (response) {
+        submitFeedback(hint, rating)
+            .then(response => {
                 console.log(response);
             })
-            .catch(function (error) {
+            .catch(error => {
                 console.log(error);
             });
     };
 
     return (
         <Stack spacing={2}>
-            {/* Toggle Buttons */}
-            <Item>
-                <ToggleButtons>
-                    <Button onClick={() => setShowIntro(!showIntro)}>
-                        Toggle Introduction
-                    </Button>
-                    <Button onClick={() => setShowChatGPTHint(!showChatGPTHint)}>
-                        Toggle ChatGPT Hint
-                    </Button>
-                </ToggleButtons>
-            </Item>
-
-            {/* Introduction */}
+            <ToggleButtonGroup
+                showIntro={showIntro}
+                setShowIntro={setShowIntro}
+                showChatGPTHint={showChatGPTHint}
+                setShowChatGPTHint={setShowChatGPTHint}
+            />
             {showIntro && (
                 <Item>
                     <Dialog
                         open={showIntro}
                         onClose={() => setShowIntro(false)}
                     >
-                        <DialogTitle>Welcome to the Code Review Page!</DialogTitle>
+                        <DialogTitle>Welcome to the Code Review
+                            Page!</DialogTitle>
                         <DialogContent>
                             <DialogContentText>
-                                Here you can compare correct solutions to incorrect ones...
+                                Here you can compare correct solutions to
+                                incorrect ones...
                             </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={() => setShowIntro(false)}>Close</Button>
+                            <Button
+                                onClick={() => setShowIntro(false)}>Close</Button>
                         </DialogActions>
                     </Dialog>
                 </Item>
             )}
-
-
-            {/* Right and Wrong Code */}
-            <CodeContainer>
-                {/* Correct Code */}
-                <CodeBlock>
-                    <Typography variant="h4" component="h2" align='center'>Correct Solution</Typography>
-                    <SyntaxHighlighter language="python" style={solarizedlight}>
-                        {correctCode}
-                    </SyntaxHighlighter>
-                </CodeBlock>
-
-                {/* Incorrect Code */}
-                {showIncorrectCode && (
-                    <CodeBlock>
-                        <Typography variant="h4" component="h2" align='center'>Student Code</Typography>
-                        <SyntaxHighlighter language="python" style={solarizedlight}>
-                            {incorrectCode}
-                        </SyntaxHighlighter>
-                    </CodeBlock>
-                )}
-            </CodeContainer>
-
-            {/* ChatGPT Hint Area */}
-            <Item>
-                <Button onClick={() => setShowChatGPTHint(!showChatGPTHint)}>Toggle ChatGPT Hint</Button>
-                {showChatGPTHint && (
-                    <Typography>
-                        {/* Placeholder for ChatGPT hint. */}
-                        This is where ChatGPT's hint will appear.
-                    </Typography>
-                )}
-            </Item>
-
-            {/* Markdown Editor */}
-            <Item>
-                <Stack spacing={1}>
-                    <Item>
-                        <Typography variant="h4" component="h2" align='center'>Hint</Typography>
-                    </Item>
-                    <Item>
-                        <form onSubmit={handleSubmit}>
-                            <Stack spacing={1.5}>
-                                <Item>
-                                    <MarkdownEditor hint={hint} setHint={setHint} />
-                                </Item>
-                                <Item>
-                                    <Button
-                                        type="submit"
-                                        variant="contained"
-                                        color="primary"
-                                    >
-                                        Submit
-                                    </Button>
-                                </Item>
-                            </Stack>
-                        </form>
-                    </Item>
-                </Stack>
-            </Item>
+            <CodeDisplay
+                correctCode={correctCode}
+                incorrectCode={incorrectCode}
+                showIncorrectCode={showIncorrectCode}
+            />
+            <ChatGPTHint showChatGPTHint={showChatGPTHint}/>
+            <EditorForm hint={hint} setHint={setHint}
+                        handleSubmit={handleSubmit}/>
         </Stack>
     );
 }
