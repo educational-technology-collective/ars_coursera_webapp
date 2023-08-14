@@ -13,9 +13,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import MarkdownEditor from "./utils/markdown";
-import RatingComponent from "./utils/rating"
-import LoginButton from "./utils/login";
-import LogoutButton from "./utils/logout";
+import {useSpring, animated} from 'react-spring';
 
 const CodeContainer = styled.div`
   display: flex;
@@ -33,8 +31,16 @@ const CodeBlock = styled.div`
   height: 350px;
 `;
 
+const ToggleButtons = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+`;
+
 function Page1() {
-    const [showIncorrectCode, setShowIncorrectCode] = React.useState(true); // Add this state for toggling visibility
+    const [showIntro, setShowIntro] = React.useState(true);
+    const [showChatGPTHint, setShowChatGPTHint] = React.useState(false);
+    const [showIncorrectCode, setShowIncorrectCode] = React.useState(true);
 
     const correctCode = "def student_grades():\n" + "    import re\n" + "    with open (\"assets/grades.txt\", \"r\") as file:\n" + "        grades = file.read()\n" + "\n" + "    ### BEGIN SOLUTION\n" + "    pattern = re.compile(r'\\w+\\s\\w+(?=: B)')\n" + "    matches = re.findall(pattern,grades)\n" + "\n" + "    # Alternative answers: \n" + "    # pattern = \"\"\"(?P<test>\\w+\\s+\\w+): B\"\"\"\n" + "    \n" + "    ### END SOLUTION   \n" + "\n" + "    return matches  \n" + "    \n";
 
@@ -77,81 +83,82 @@ function Page1() {
 
     return (
         <Stack spacing={2}>
+            {/* Toggle Buttons */}
             <Item>
-                <LoginButton/>
-                <LogoutButton/>
+                <ToggleButtons>
+                    <Button onClick={() => setShowIntro(!showIntro)}>
+                        Toggle Introduction
+                    </Button>
+                    <Button onClick={() => setShowChatGPTHint(!showChatGPTHint)}>
+                        Toggle ChatGPT Hint
+                    </Button>
+                </ToggleButtons>
             </Item>
+
+            {/* Introduction */}
+            {showIntro && (
+                <Item>
+                    <Dialog
+                        open={showIntro}
+                        onClose={() => setShowIntro(false)}
+                    >
+                        <DialogTitle>Welcome to the Code Review Page!</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                Here you can compare correct solutions to incorrect ones...
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={() => setShowIntro(false)}>Close</Button>
+                        </DialogActions>
+                    </Dialog>
+                </Item>
+            )}
+
+
+            {/* Right and Wrong Code */}
+            <CodeContainer>
+                {/* Correct Code */}
+                <CodeBlock>
+                    <Typography variant="h4" component="h2" align='center'>Correct Solution</Typography>
+                    <SyntaxHighlighter language="python" style={solarizedlight}>
+                        {correctCode}
+                    </SyntaxHighlighter>
+                </CodeBlock>
+
+                {/* Incorrect Code */}
+                {showIncorrectCode && (
+                    <CodeBlock>
+                        <Typography variant="h4" component="h2" align='center'>Student Code</Typography>
+                        <SyntaxHighlighter language="python" style={solarizedlight}>
+                            {incorrectCode}
+                        </SyntaxHighlighter>
+                    </CodeBlock>
+                )}
+            </CodeContainer>
+
+            {/* ChatGPT Hint Area */}
             <Item>
-                <Button onClick={() => setShowIncorrectCode(!showIncorrectCode)}>
-                    Toggle Incorrect Code
-                </Button>
+                <Button onClick={() => setShowChatGPTHint(!showChatGPTHint)}>Toggle ChatGPT Hint</Button>
+                {showChatGPTHint && (
+                    <Typography>
+                        {/* Placeholder for ChatGPT hint. */}
+                        This is where ChatGPT's hint will appear.
+                    </Typography>
+                )}
             </Item>
-            <Item>
-                <Dialog
-                    open={open}
-                    onClose={() => setOpen(false)}
-                >
-                    <DialogTitle>Welcome to the Code Review Page!</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            Here you can compare correct solutions to incorrect
-                            ones, write hints to improve the incorrect code and
-                            rate
-                            the level of difficulty of the problem. Start by
-                            analyzing the code blocks, then proceed to write a
-                            helpful hint and finally rate the difficulty before
-                            submitting.
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={() => setOpen(false)}>
-                            Close
-                        </Button>
-                    </DialogActions>
-                </Dialog>
-            </Item>
+
+            {/* Markdown Editor */}
             <Item>
                 <Stack spacing={1}>
                     <Item>
-                        <Typography variant="h4" component="h2" align='center'>
-                            Solution | Student Code
-                        </Typography>
-                    </Item>
-                    <Item>
-                        <CodeContainer>
-                            <CodeBlock>
-                                <SyntaxHighlighter language="python"
-                                                   style={solarizedlight}>
-                                    {correctCode}
-                                </SyntaxHighlighter>
-                            </CodeBlock>
-                           {showIncorrectCode && <CodeBlock>
-                                <SyntaxHighlighter language="python"
-                                                   style={solarizedlight}>
-                                    {incorrectCode}
-                                </SyntaxHighlighter>
-                            </CodeBlock>}
-                        </CodeContainer>
-                    </Item>
-                </Stack>
-            </Item>
-            <Item>
-                <Stack spacing={1}>
-                    <Item>
-                        <Typography variant="h4" component="h2" align='center'>
-                            Hint
-                        </Typography>
+                        <Typography variant="h4" component="h2" align='center'>Hint</Typography>
                     </Item>
                     <Item>
                         <form onSubmit={handleSubmit}>
                             <Stack spacing={1.5}>
                                 <Item>
-                                    <MarkdownEditor hint={hint}
-                                                    setHint={setHint}/>
-                                </Item>
-                                <Item>
-                                    <RatingComponent rating={rating}
-                                                     setRating={setRating}/>
+                                    <MarkdownEditor hint={hint} setHint={setHint} />
                                 </Item>
                                 <Item>
                                     <Button
@@ -167,7 +174,8 @@ function Page1() {
                     </Item>
                 </Stack>
             </Item>
-        </Stack>);
+        </Stack>
+    );
 }
 
 export default Page1;

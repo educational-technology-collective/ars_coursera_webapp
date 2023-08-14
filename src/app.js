@@ -6,9 +6,9 @@ import Page3 from './Page3';
 
 const router = createBrowserRouter(
     [
-        { path: '/group1', component: Page1 },
-        { path: '/group2', element: Page2 },
-        { path: '/group3', element: Page3 },
+        { path: '/group1', element: <Page1></Page1> },
+        { path: '/group2', element: <Page2></Page2> },
+        { path: '/group3', element: <Page3></Page3> },
         { path: '/', element:
             <div>
                 <h1>Home</h1>

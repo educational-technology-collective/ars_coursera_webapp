@@ -14,8 +14,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
 import MarkdownEditor from "./utils/markdown";
 import RatingComponent from "./utils/rating"
-import LoginButton from "./utils/login";
-import LogoutButton from "./utils/logout";
 
 const CodeContainer = styled.div`
   display: flex;
@@ -75,10 +73,6 @@ function Page3() {
 
     return (
         <Stack spacing={2}>
-            <Item>
-                <LoginButton/>
-                <LogoutButton/>
-            </Item>
             <Item>
                 <Dialog
                     open={open}
