@@ -18,6 +18,7 @@
     "@fontsource/roboto": "^5.0.5",
     "@mui/icons-material": "^5.13.7",
     "@mui/material": "^5.13.7",
+    "@uiw/react-markdown-editor": "^5.11.2",
     "@uiw/react-md-editor": "^3.23.3",
     "axios": "^1.4.0",
     "next-remove-imports": "^1.0.11",

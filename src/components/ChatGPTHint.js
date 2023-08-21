@@ -5,7 +5,7 @@ function ChatGPTHint({ showChatGPTHint }) {
     return (
         <div>
             {showChatGPTHint && (
-                <Typography>
+                <Typography Paragraph>
                     {/* Placeholder for ChatGPT hint. */}
                     This is where ChatGPT's hint will appear.
                 </Typography>
