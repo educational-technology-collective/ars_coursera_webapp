@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom';
 import EmailForm from "./components/EmailForm";
 import Page1 from './page/page1';
