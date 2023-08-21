@@ -3,11 +3,11 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import ToggleButtonGroup from './components/ToggleButtonGroup';
-import CodeDisplay from './components/CodeDisplay';
-import ChatGPTHint from './components/ChatGPTHint';
-import EditorForm from './components/EditorForm';
-import {submitFeedback} from './utils/api';
+import ToggleButtonGroup from '../components/ToggleButtonGroup';
+import CodeDisplay from '../components/CodeDisplay';
+import ChatGPTHint from '../components/ChatGPTHint';
+import EditorForm from '../components/EditorForm';
+import {submitFeedback} from '../utils/api';
 import Typography from '@mui/material/Typography';
 
 function Page1() {

@@ -1,24 +1,25 @@
 import React from 'react';
+import { useState } from 'react';
 import { createBrowserRouter, RouterProvider, Link } from 'react-router-dom';
-import Page1 from './Page1';
-import Page2 from './Page2';
-import Page3 from './Page3';
+import EmailForm from "./components/EmailForm";
+import Page1 from './page/page1';
+import Page2 from './page/page2';
+import Page3 from './page/page3';
+import Intro1 from './page/intro1';
+import Intro2 from './page/intro2';
+import Intro3 from './page/intro3';
+
+
 
 const router = createBrowserRouter(
     [
         { path: '/group1', element: <Page1></Page1> },
         { path: '/group2', element: <Page2></Page2> },
         { path: '/group3', element: <Page3></Page3> },
-        { path: '/', element:
-            <div>
-                <h1>Home</h1>
-                <ul>
-                    <li><Link to="/group1">Group 1</Link></li>
-                    <li><Link to="/group2">Group 2</Link></li>
-                    <li><Link to="/group3">Group 3</Link></li>
-                </ul>
-            </div>
-        },
+        { path: '/intro1', element: <Intro1></Intro1> },
+        { path: '/intro2', element: <Intro2></Intro2> },
+        { path: '/intro3', element: <Intro3></Intro3> },
+        { path: '/', element: <EmailForm></EmailForm> },
     ]
 );
 

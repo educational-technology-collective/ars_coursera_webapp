@@ -8,11 +8,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogActions from '@mui/material/DialogActions';
-import ToggleButtonGroup from './components/ToggleButtonGroup';
-import CodeDisplay from './components/CodeDisplay';
-import MistakeList from './components/MistakeList';
-import EditorForm from './components/EditorForm';
-import {submitFeedback} from './utils/api';
+import ToggleButtonGroup from '../components/ToggleButtonGroup';
+import CodeDisplay from '../components/CodeDisplay';
+import MistakeList from '../components/MistakeList';
+import EditorForm from '../components/EditorForm';
+import {submitFeedback} from '../utils/api';
 
 function Page1() {
     const [showIntro, setShowIntro] = React.useState(true);
