@@ -43,16 +43,16 @@ function Page3() {
                 <Typography variant="h4" gutterBottom>
                     Assignment 2 Question 2 Reflection Activity
                 </Typography>
-                <Typography paragraph>
+                <Typography paragraph style={{ fontSize: 18 }}>
                     Let's proceed with the task now!
                 </Typography>
-                <Typography paragraph>
+                <Typography paragraph style={{ fontSize: 18 }}>
                     To remind you, Question 2
                     of Assignment 2, which was based on the 2017 data on
                     immunizations from the CDC, was as follows:
                 </Typography>
 
-                <Typography paragraph style={{fontStyle: 'italic'}}>
+                <Typography paragraph style={{fontStyle: 'italic', fontSize: 18 }}>
                     It would be interesting to see if there is any evidence of a
                     link between vaccine effectiveness and sex of the child.
                     Calculate the ratio of the number of children who contracted
@@ -61,13 +61,13 @@ function Page3() {
                     contract chicken pox. Return results by sex.
                 </Typography>
 
-                <Typography paragraph style={{fontStyle: 'italic'}}>
+                <Typography paragraph style={{fontStyle: 'italic', fontSize: 18 }}>
                     This function should return a dictionary in the form of (use the correct
                     numbers):
                     {JSON.stringify({"male": 0.2, "female": 0.4})}
                 </Typography>
 
-                <Typography paragraph>
+                <Typography paragraph style={{ fontSize: 18 }}>
                     Please go through Solution A and identify the mistakes in
                     it. You can compare with Solution B, which is correct.
                 </Typography>
@@ -88,11 +88,11 @@ function Page3() {
                 </Grid>
             </Grid>
 
-            <Typography paragraph>
+            <Typography paragraph style={{ fontSize: 18 }}>
                 What hint would you provide to a student who wrote Solution A to help them fix their code?
                 </Typography>
 
-            <Typography paragraph>
+            <Typography paragraph style={{ fontSize: 18 }}>
                 Remember, the goal is to help them understand their mistake and lead them to the correct solution rather than solving their problem completely.
             </Typography>
 

@@ -35,13 +35,13 @@ function Intro3() {
                 <Typography variant="h4" gutterBottom>
                     Assignment Reflection Instruction
                 </Typography>
-                <Typography paragraph>
+                <Typography paragraph style={{ fontSize: 18 }}>
                     Well done on submitting two of the four programming
                     assignments!
                     Before moving on to the next module, here is a reflection
                     assignment to revise some of the concepts learned so far.
                 </Typography>
-                <Typography paragraph>
+                <Typography paragraph style={{ fontSize: 18 }}>
                     In this assignment, you will identify the mistakes in an
                     incorrect solution to
                     <b> Question 2 from Assignment 2 </b>
@@ -49,12 +49,12 @@ function Intro3() {
                     <b> write a hint such that someone who wrote the incorrect solution can use it to identify their mistake and fix their code.
                     </b>
                 </Typography>
-                <Typography paragraph>
+                <Typography paragraph style={{ fontSize: 18 }}>
                     This activity will encourage you to think critically, learn from
             mistakes, and help improve your problem-solving skills!
                 </Typography>
                 <Box border={1} borderColor="grey.300" borderRadius={4} p={2} mb={3}>
-                <Typography paragraph>
+                <Typography paragraph style={{ fontSize: 18 }}>
                     Here are some tips for writing a hint for a student. A good
             hint:
                     <ul style={{ listStyleType: 'disc', marginLeft: '10px' }}>
@@ -67,7 +67,7 @@ function Intro3() {
             </ul>
                 </Typography>
             </Box>
-                <Typography paragraph>
+                <Typography paragraph style={{ fontSize: 18 }}>
                     <b> Let's go through a simple example </b>
                     to learn more about this exercise. Consider the first question
             of assignment two, which required you to write a function called
@@ -82,7 +82,7 @@ function Intro3() {
                 <p>image placeholder</p>
                 {/*<img src={instructionImage} alt="Example Solution"*/}
                 {/*     style={{width: '100%', marginBottom: '20px'}}/>*/}
-                <Typography paragraph>
+                <Typography paragraph style={{ fontSize: 18 }}>
                     What do you think is a good hint for someone who wrote
                     Solution A?
                 </Typography>
@@ -105,15 +105,15 @@ function Intro3() {
 
             {showInstructions && (
                 <Box p={3}>
-                    <Typography paragraph>A good hint for Solution A would
+                    <Typography paragraph style={{ fontSize: 18 }}>A good hint for Solution A would
                         be:</Typography>
-                    <Typography paragraph style={{color: 'green'}}>
+                    <Typography paragraph style={{color: 'green'}} style={{ fontSize: 18 }}>
                         Check the use of the filter df["C5R"]==1. Why is
                     this filter needed to calculate the total number of
                     all children in the dataset?
                     </Typography>
-                    <Typography paragraph>A bad hint would be:</Typography>
-                    <Typography paragraph style={{color: 'red'}}>
+                    <Typography paragraph style={{ fontSize: 18 }}>A bad hint would be:</Typography>
+                    <Typography paragraph style={{color: 'red'}} style={{ fontSize: 18 }}>
                         To fix your solution, remove the filter df["C5R"]==1
                     for the computation of a1.
                     </Typography>

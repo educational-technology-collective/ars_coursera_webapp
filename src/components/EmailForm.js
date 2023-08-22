@@ -29,8 +29,8 @@ function EmailForm() {
 
     return (
         <Container component={Paper} maxWidth="sm" style={{ padding: '24px', marginTop: '50px' }}>
-            <Typography variant="h4" gutterBottom>
-                Email Input
+            <Typography variant="h5" gutterBottom>
+                Please enter your University of Michigan email
             </Typography>
             <Box component="form" onSubmit={handleSubmit} spacing={2}>
                 <TextField
