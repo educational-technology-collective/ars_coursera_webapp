@@ -50,7 +50,9 @@ function Intro1() {
                     </b>
                 </Typography>
                 <Typography paragraph style={{ fontSize: 18 }}>
-                    To help you in this task, you can click on the “Show ChatGPT hint” button to see a hint for the same incorrect code provided by ChatGPT, a popular AI chatbot that uses natural language processing to create humanlike conversational dialogue. Note that the ChatGPT hint could be incorrect, incomplete, or both.
+                    To help you in this task, you can click on the
+                    <b> “Show ChatGPT hint” </b>
+                    button to see a hint for the same incorrect code provided by ChatGPT, a popular AI chatbot that uses natural language processing to create humanlike conversational dialogue. Note that the ChatGPT hint could be incorrect, incomplete, or both.
                 </Typography>
                 <Typography paragraph style={{ fontSize: 18 }}>
                     This activity will encourage you to think critically, learn from
@@ -58,7 +60,9 @@ function Intro1() {
                 </Typography>
                 <Box border={1} borderColor="grey.300" borderRadius={4} p={2} mb={3}>
                 <Typography paragraph style={{ fontSize: 18 }}>
-                    Here are some tips for writing a hint for a student. A good
+                    Here are some
+                    <b> tips for writing a hint </b>
+                    for a student. A good
             hint:
                     <ul style={{ listStyleType: 'disc', marginLeft: '10px' }}>
                         <li>Provides information to help the student achieve the correct
@@ -74,20 +78,19 @@ function Intro1() {
                     <b> Let's go through a simple example </b>
                     to learn more about this exercise. Consider the first question
             of assignment two, which required you to write a function called
-            ‘proportion_of_education’, which returns the proportion of
+            <code> ‘proportion_of_education’</code>, which returns the proportion of
             children in the dataset who had a mother with the four types of
             levels of education. Below, you will see a correct and an
             incorrect solution to this question:
                 </Typography>
+                <img src="https://raw.githubusercontent.com/maizehsu/FigureBed/main/asset/2023/08/22/20230822095525.png" alt="Example Solution"
+                    style={{width: '100%'}}/>
             </Box>
 
             <Box p={3}>
-                <p>image placeholder</p>
-                {/*<img src={instructionImage} alt="Example Solution"*/}
-                {/*     style={{width: '100%', marginBottom: '20px'}}/>*/}
                 <Typography paragraph style={{ fontSize: 18 }}>
-                    What do you think is a good hint for someone who wrote
-                    Solution A?
+                    <b> What do you think is a good hint for someone who wrote
+                        Solution A? </b>
                 </Typography>
                 <TextareaAutosize
                     value={hint}

@@ -64,7 +64,7 @@ function Page3() {
                 <Typography paragraph style={{fontStyle: 'italic', fontSize: 18 }}>
                     This function should return a dictionary in the form of (use the correct
                     numbers):
-                    {JSON.stringify({"male": 0.2, "female": 0.4})}
+                    <code> {JSON.stringify({"male": 0.2, "female": 0.4})}</code>
                 </Typography>
 
                 <Typography paragraph style={{ fontSize: 18 }}>

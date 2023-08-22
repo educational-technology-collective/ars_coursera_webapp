@@ -64,7 +64,7 @@ function Page1() {
                 <Typography paragraph style={{fontStyle: 'italic', fontSize: 18 }}>
                     This function should return a dictionary in the form of (use the correct
                     numbers):
-                    {JSON.stringify({"male": 0.2, "female": 0.4})}
+                    <code> {JSON.stringify({"male": 0.2, "female": 0.4})}</code>
                 </Typography>
 
                 <Typography paragraph style={{ fontSize: 18 }}>
@@ -100,16 +100,16 @@ function Page1() {
 
             <Grid container justifyContent="space-between">
                 <Grid item>
-                    <ToggleButtonGroup
-                        showChatGPTHint={showChatGPTHint}
-                        setShowChatGPTHint={setShowChatGPTHint}
-                    />
-                </Grid>
-                <Grid item>
                     <Button onClick={handleSubmit} variant="contained"
                             color="primary">
                         Submit
                     </Button>
+                </Grid>
+                <Grid item>
+                    <ToggleButtonGroup
+                        showChatGPTHint={showChatGPTHint}
+                        setShowChatGPTHint={setShowChatGPTHint}
+                    />
                 </Grid>
             </Grid>
 
