@@ -1,4 +1,12 @@
 import React, { useState } from "react";
+import {
+    Button,
+    TextField,
+    Box,
+    Typography,
+    Paper,
+    Container
+} from '@mui/material';
 
 function hashEmail(email) {
   let hash = 0;
@@ -20,20 +28,32 @@ function EmailForm() {
     };
 
     return (
-        <div>
-            <h1>Email Input</h1>
-            <form onSubmit={handleSubmit}>
-                <input
+        <Container component={Paper} maxWidth="sm" style={{ padding: '24px', marginTop: '50px' }}>
+            <Typography variant="h4" gutterBottom>
+                Email Input
+            </Typography>
+            <Box component="form" onSubmit={handleSubmit} spacing={2}>
+                <TextField
+                    fullWidth
+                    variant="outlined"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your-email@umich.edu"
+                    label="University Email"
                     pattern="[a-zA-Z0-9._%+-]+@umich\.edu"
                     required
                 />
-                <button type="submit">Submit</button>
-            </form>
-        </div>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                    style={{ marginTop: '20px' }}
+                >
+                    Submit
+                </Button>
+            </Box>
+        </Container>
     );
 }
 

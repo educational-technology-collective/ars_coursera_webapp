@@ -40,8 +40,8 @@ function Page1() {
     return (
         <Stack spacing={2}>
             <Box p={3}>
-                <Typography variant="h6" gutterBottom>
-                    Assignment 2 Question 2 Reflection
+                <Typography variant="h4" gutterBottom>
+                    Assignment 2 Question 2 Reflection Activity
                 </Typography>
                 <Typography paragraph>
                     Let's proceed with the task now!
@@ -60,6 +60,7 @@ function Page1() {
                     varicella dose) versus those who were vaccinated but did not
                     contract chicken pox. Return results by sex.
                 </Typography>
+
                 <Typography paragraph style={{fontStyle: 'italic'}}>
                     This function should return a dictionary in the form of (use the correct
                     numbers):
