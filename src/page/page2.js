@@ -81,7 +81,7 @@ function Page2() {
 
                 <Typography paragraph style={{fontSize: 18}}>
                     Please go through Solution A and identify the mistakes in
-                    it. You can compare with Solution B, which is correct.
+                    it. You can compare with Solution B, which is correct. Assume that all the relevant libraries such as pandas and NumPy are already imported, even if you don’t see that in Solution A.
                 </Typography>
             </Box>
 
@@ -101,8 +101,8 @@ function Page2() {
             </Grid>
 
             <Typography paragraph style={{fontSize: 18}}>
-                What hint would you provide to a student who wrote Solution A to
-                help them fix their code?
+                <b>What hint would you provide to a student who wrote Solution A
+                    to help them fix their code?</b>
             </Typography>
 
             <Typography paragraph style={{fontSize: 18}}>
@@ -129,16 +129,16 @@ function Page2() {
                                 setHint={setRevisedHint}/> {/* Separate EditorForm for the revised hint */}
                     <Grid container justifyContent="space-between">
                         <Grid item>
-                            <Button onClick={handleFinalSubmit}
-                                    variant="contained" color="primary">
-                                Submit Final Hint
-                            </Button>
-                        </Grid>
-                        <Grid item>
                             <ToggleButtonGroup
                                 showChatGPTHint={showChatGPTHint}
                                 setShowChatGPTHint={setShowChatGPTHint}
                             />
+                        </Grid>
+                        <Grid item>
+                            <Button onClick={handleFinalSubmit}
+                                    variant="contained" color="primary">
+                                Submit Final Hint
+                            </Button>
                         </Grid>
                     </Grid>
                 </>
@@ -148,7 +148,7 @@ function Page2() {
                     <Grid item>
                         <Button onClick={handleInitialSubmit}
                                 variant="contained" color="primary">
-                            Show Hint From ChatGPT
+                            Next
                         </Button>
                     </Grid>
                 </Grid>

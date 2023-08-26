@@ -43,16 +43,17 @@ function Page1() {
                 <Typography variant="h4" gutterBottom>
                     Assignment 2 Question 2 Reflection Activity
                 </Typography>
-                <Typography paragraph style={{ fontSize: 18 }}>
+                <Typography paragraph style={{fontSize: 18}}>
                     Let's proceed with the task now!
                 </Typography>
-                <Typography paragraph style={{ fontSize: 18 }}>
+                <Typography paragraph style={{fontSize: 18}}>
                     To remind you, Question 2
                     of Assignment 2, which was based on the 2017 data on
                     immunizations from the CDC, was as follows:
                 </Typography>
 
-                <Typography paragraph style={{fontStyle: 'italic', fontSize: 18 }}>
+                <Typography paragraph
+                            style={{fontStyle: 'italic', fontSize: 18}}>
                     It would be interesting to see if there is any evidence of a
                     link between vaccine effectiveness and sex of the child.
                     Calculate the ratio of the number of children who contracted
@@ -61,15 +62,20 @@ function Page1() {
                     contract chicken pox. Return results by sex.
                 </Typography>
 
-                <Typography paragraph style={{fontStyle: 'italic', fontSize: 18 }}>
-                    This function should return a dictionary in the form of (use the correct
+                <Typography paragraph
+                            style={{fontStyle: 'italic', fontSize: 18}}>
+                    This function should return a dictionary in the form of (use
+                    the correct
                     numbers):
                     <code> {JSON.stringify({"male": 0.2, "female": 0.4})}</code>
                 </Typography>
 
-                <Typography paragraph style={{ fontSize: 18 }}>
+                <Typography paragraph style={{fontSize: 18}}>
                     Please go through Solution A and identify the mistakes in
                     it. You can compare with Solution B, which is correct.
+                    Assume that all the relevant libraries such as pandas and
+                    NumPy are already imported, even if you don’t see that in
+                    Solution A.
                 </Typography>
             </Box>
 
@@ -89,27 +95,30 @@ function Page1() {
             </Grid>
 
             <Typography paragraph>
-                What hint would you provide to a student who wrote Solution A to help them fix their code?
-                </Typography>
+                <b>What hint would you provide to a student who wrote Solution A
+                    to help them fix their code?</b>
+            </Typography>
 
             <Typography paragraph>
-                Remember, the goal is to help them understand their mistake and lead them to the correct solution rather than solving their problem completely.
+                Remember, the goal is to help them understand their mistake and
+                lead them to the correct solution rather than solving their
+                problem completely.
             </Typography>
 
             <EditorForm hint={hint} setHint={setHint}/>
 
             <Grid container justifyContent="space-between">
                 <Grid item>
-                    <Button onClick={handleSubmit} variant="contained"
-                            color="primary">
-                        Submit
-                    </Button>
-                </Grid>
-                <Grid item>
                     <ToggleButtonGroup
                         showChatGPTHint={showChatGPTHint}
                         setShowChatGPTHint={setShowChatGPTHint}
                     />
+                </Grid>
+                <Grid item>
+                    <Button onClick={handleSubmit} variant="contained"
+                            color="primary">
+                        Submit
+                    </Button>
                 </Grid>
             </Grid>
 

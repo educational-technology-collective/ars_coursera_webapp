@@ -7,6 +7,7 @@ import {
     Paper,
     Container
 } from '@mui/material';
+import { useSurveyData } from "../SurveyDataContext";
 
 function hashEmail(email) {
   let hash = 0;
@@ -19,11 +20,18 @@ function hashEmail(email) {
 
 function EmailForm() {
     const [email, setEmail] = useState('');
+    const { data, setData } = useSurveyData();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const hashedValue = hashEmail(email);
         const route = ['/intro1', '/intro2', '/intro3'][hashedValue % 3];
+
+        setData({
+            ...data,
+            email: email,
+        })
+
         window.location.href = route;
     };
 

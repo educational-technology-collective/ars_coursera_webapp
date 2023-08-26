@@ -113,13 +113,13 @@ function Intro1() {
                 <Box p={3}>
                     <Typography paragraph style={{ fontSize: 18 }}>A good hint for Solution A would
                         be:</Typography>
-                    <Typography paragraph style={{color: 'green'}} style={{ fontSize: 18 }}>
+                    <Typography paragraph style={{color: 'green', fontSize: 18 }}>
                         Check the use of the filter df["C5R"]==1. Why is
                     this filter needed to calculate the total number of
                     all children in the dataset?
                     </Typography>
                     <Typography paragraph>A bad hint would be:</Typography>
-                    <Typography paragraph style={{color: 'red'}} style={{ fontSize: 18 }}>
+                    <Typography paragraph style={{color: 'red', fontSize: 18 }}>
                         To fix your solution, remove the filter df["C5R"]==1
                     for the computation of a1.
                     </Typography>
