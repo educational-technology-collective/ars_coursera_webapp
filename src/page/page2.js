@@ -9,20 +9,22 @@ import ChatGPTHint from '../components/ChatGPTHint';
 import EditorForm from '../components/EditorForm';
 import {submitFeedback} from '../utils/api';
 import Typography from '@mui/material/Typography';
-import {useSurveyData} from "../SurveyDataContext";
+import { useSurveyData } from "../SurveyDataContext";
 
 function Page2() {
 
-    const {data, setData} = useSurveyData(); // Use the data if needed
-    const [timeEntered, setTimeEntered] = useState(Date.now());
     const [showChatGPTHint, setShowChatGPTHint] = useState(true);
     const correctCode = "def student_grades():\n" + "    import re\n" + "    with open (\"assets/grades.txt\", \"r\") as file:\n" + "        grades = file.read()\n" + "\n" + "    ### BEGIN SOLUTION\n" + "    pattern = re.compile(r'\\w+\\s\\w+(?=: B)')\n" + "    matches = re.findall(pattern,grades)\n" + "\n" + "    # Alternative answers: \n" + "    # pattern = \"\"\"(?P<test>\\w+\\s+\\w+): B\"\"\"\n" + "    \n" + "    ### END SOLUTION   \n" + "\n" + "    return matches  \n" + "    \n";
     const incorrectCode = "def logs():\n" + "    import re\n" + "    with open(\"assets/logdata.txt\", \"r\") as file:\n" + "        logdata = file.read()\n" + "    \n" + "    ### FIX CODE BELOW    \n" + "    pattern = \"(?P<host>[0-9]+[.][0-9]+[.][0-9]+[.][0-9]+)\n" + "    (-) (?P<name>[a-z]+[0-9]*)\n" + "    (?P<time>[[0-9]*/[A-Z]+[a-z]*/[0-9]*:[0-9]+:[0-9]*:[0-9]* -[0-9]*])\n" + "    (?P<request>\\\"[A-Z]* (.+?) (.+?)) \"\n" + "\n" + "    logs = []\n" + "    ### FIX CODE ABOVE\n" + "\n" + "    for i in re.finditer(pattern, logdata):\n" + "        logs.append(i.groupdict())\n" + "\n" + "    # YOUR CODE HERE\n" + "\n" + "    return logs\n" + "\n" + "logs()";
 
     const [hint, setHint] = React.useState(/* ... (same as before) ... */);
 
+    const [startTime, setStartTime] = useState(null);
+    const {data, setData} = useSurveyData();
+
     useEffect(() => {
-        setTimeEntered(Date.now());
+        setStartTime(Date.now());
+        return () => setStartTime(null);
     }, []);
 
     const [showSecondPart, setShowSecondPart] = useState(false);
@@ -36,25 +38,20 @@ function Page2() {
     const handleFinalSubmit = (event) => {
         event.preventDefault();
 
-        const timeExited = Date.now();
-        const timeSpentCalculated = (timeExited - timeEntered) / 1000;
+        const timeSpent = Date.now() - startTime;
+        const timeSpentCalculated = timeSpent / 1000;
 
-        const feedbackData = {
-            chatGPTHint: hint,
-            correctCode,
-            incorrectCode,
-            studentHint: hint,
-            timeSpent: timeSpentCalculated,
-        };
-
-        // Using data from useSurveyData, if required
-        setData(prevData => ({
-            ...prevData,
+        setData({
+            ...data,
             page: {
-                ...prevData.page,
-                feedbackData
+                ...data.page,
+                chatGPTHint: hint,
+                correctCode,
+                incorrectCode,
+                studentHint: hint,
+                timeSpent: timeSpentCalculated,
             }
-        }));
+        });
 
         // Handle feedback submission (you can combine original hint and revised hint)
         submitFeedback(hint)

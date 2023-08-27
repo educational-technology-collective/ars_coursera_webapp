@@ -36,9 +36,10 @@ function Intro3() {
     const handleSubmit = () => {
         if (hint.length > 10) {
             setShowInstructions(true);
-            // Stop the timer and record the time spent
+
             const timeSpent = Date.now() - startTime;
-            // Update the survey data
+            const timeSpentCalculated = timeSpent / 1000;
+
             setData({
                 ...data,
                 intro: {

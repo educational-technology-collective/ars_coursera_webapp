@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import {
     Button,
     TextField,
@@ -7,7 +8,7 @@ import {
     Paper,
     Container
 } from '@mui/material';
-import {useSurveyData} from "../SurveyDataContext";
+import { useSurveyData } from "../SurveyDataContext";
 
 function hashEmail(email) {
     let hash = 0;
@@ -20,26 +21,25 @@ function hashEmail(email) {
 
 function EmailForm() {
     const [email, setEmail] = useState('');
-    const {data, setData} = useSurveyData();
+    const { data, setData } = useSurveyData();
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const hashedValue = hashEmail(email);
         const route = ['/intro1', '/intro2', '/intro3'][hashedValue % 3];
 
-        setData(prevData => ({
-            ...prevData,
+        setData({
+            ...data,
             email: email,
-        }));
+        });
 
-        console.log(data)
-
-        window.location.href = route;
+        navigate(route); // navigate to the calculated route
     };
 
     return (
         <Container component={Paper} maxWidth="sm"
-                   style={{padding: '24px', marginTop: '50px'}}>
+                   style={{ padding: '24px', marginTop: '50px' }}>
             <Typography variant="h5" gutterBottom>
                 Please enter your University of Michigan email
             </Typography>
@@ -59,7 +59,7 @@ function EmailForm() {
                     variant="contained"
                     color="primary"
                     type="submit"
-                    style={{marginTop: '20px'}}
+                    style={{ marginTop: '20px' }}
                 >
                     Submit
                 </Button>

@@ -32,22 +32,17 @@ function Page3() {
         const timeExited = Date.now();
         const timeSpentCalculated = (timeExited - timeEntered) / 1000;
 
-        const feedbackData = {
-            chatGPTHint: hint,
-            correctCode,
-            incorrectCode,
-            studentHint: hint,
-            timeSpent: timeSpentCalculated,
-        };
-
-        // Using data from useSurveyData, if required
-        setData(prevData => ({
-            ...prevData,
+        setData({
+            ...data,
             page: {
-                ...prevData.page,
-                feedbackData
+                ...data.page,
+                chatGPTHint: hint,
+                correctCode,
+                incorrectCode,
+                studentHint: hint,
+                timeSpent: timeSpentCalculated,
             }
-        }));
+        });
 
         submitFeedback(hint)
             .then(response => {

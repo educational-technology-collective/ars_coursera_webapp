@@ -27,23 +27,22 @@ function Intro2() {
     const { data, setData } = useSurveyData();
 
     useEffect(() => {
-        // set start time when the component mounts
         setStartTime(Date.now());
-        // cleanup function to stop timer when component unmounts
         return () => setStartTime(null);
     }, []);
 
     const handleSubmit = () => {
         if (hint.length > 10) {
             setShowInstructions(true);
-            // Stop the timer and record the time spent
+
             const timeSpent = Date.now() - startTime;
-            // Update the survey data
+            const timeSpentCalculated = timeSpent / 1000;
+
             setData({
                 ...data,
                 intro: {
                     ...data.intro,
-                    timeSpent,
+                    timeSpent: timeSpentCalculated,
                     warningCount,
                     hint,
                 }
