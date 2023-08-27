@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {
     Button,
@@ -13,6 +13,7 @@ import {
     DialogContentText,
     DialogTitle
 } from '@mui/material';
+import { useSurveyData } from "../SurveyDataContext";
 
 
 function Intro2() {
@@ -21,11 +22,35 @@ function Intro2() {
     const [showInstructions, setShowInstructions] = useState(false);
     const [openDialog, setOpenDialog] = useState(false);
 
+    const [startTime, setStartTime] = useState(null);
+    const [warningCount, setWarningCount] = useState(0);
+    const { data, setData } = useSurveyData();
+
+    useEffect(() => {
+        // set start time when the component mounts
+        setStartTime(Date.now());
+        // cleanup function to stop timer when component unmounts
+        return () => setStartTime(null);
+    }, []);
+
     const handleSubmit = () => {
         if (hint.length > 10) {
             setShowInstructions(true);
+            // Stop the timer and record the time spent
+            const timeSpent = Date.now() - startTime;
+            // Update the survey data
+            setData({
+                ...data,
+                intro: {
+                    ...data.intro,
+                    timeSpent,
+                    warningCount,
+                    hint,
+                }
+            });
         } else {
             setOpenDialog(true);
+            setWarningCount(warningCount + 1);
         }
     };
 

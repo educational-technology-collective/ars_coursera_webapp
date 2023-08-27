@@ -42,6 +42,7 @@ function MyMDEditor({hint, setHint}) {
     return (
         <MarkdownEditor
             value={hint}
+            onChange={setHint}
             height="200px"
             toolbars={[
                 'bold', title2

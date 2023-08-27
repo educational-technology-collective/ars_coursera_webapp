@@ -1,16 +1,10 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import MDEditor from "./MDEditor";
+import MyMDEditor from "./MDEditor";
 
-function EditorForm({ hint, setHint, handleSubmit }) {
+function EditorForm({ hint, setHint}) {
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <MDEditor hint={hint} setHint={setHint} />
-                </div>
-            </form>
+            <MyMDEditor hint={hint} setHint={setHint} />
         </div>
     );
 }
