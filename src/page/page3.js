@@ -68,7 +68,9 @@ function Page3() {
                 correctCode,
                 incorrectCode,
                 studentHint: hint,
+                studentRevisedHint: "",
                 timeSpent: timeSpentCalculated,
+                hintButtonClicks: 0
             }
         });
 

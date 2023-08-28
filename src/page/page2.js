@@ -80,7 +80,9 @@ function Page2() {
                 correctCode,
                 incorrectCode,
                 studentHint: hint,
+                studentRevisedHint: revisedHint,
                 timeSpent: timeSpentCalculated,
+                hintButtonClicks: -1
             }
         });
 

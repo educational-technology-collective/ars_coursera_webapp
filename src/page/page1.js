@@ -69,7 +69,9 @@ function Page1() {
                 correctCode,
                 incorrectCode,
                 studentHint: hint,
+                studentRevisedHint: "",
                 timeSpent: timeSpentCalculated,
+                hintButtonClicks: -1
             }
         });
 
