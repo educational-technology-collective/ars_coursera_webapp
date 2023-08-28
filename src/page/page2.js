@@ -87,7 +87,7 @@ function Page2() {
         });
     };
 
-        useEffect(() => {
+    useEffect(() => {
         if (data.page.studentHint) {  // Check that the studentHint is set
             submitStudentData(data)
                 .then(response => {

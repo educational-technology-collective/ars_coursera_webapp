@@ -1,10 +1,21 @@
 import axios from 'axios';
 
-export const submitStudentData = (data) => {
-    return axios.post('http://your-api-url.com/endpoint', {
-        data
-    });
-}
+const headers = {
+    'Content-Type': 'application/json', // or another content type if needed
+    // other headers set in Postman
+};
+
+export const submitStudentData = async (data) => {
+    try {
+        const response = await axios.post('https://gsbtynpaeg.execute-api.us-east-1.amazonaws.com/week2_student_data', {
+            data
+        }, {headers});
+        return response.data;
+    } catch (error) {
+        console.error("There was an error submitting the data", error);
+        return null;
+    }
+};
 
 export const fetchCodeHint = async () => {
     try {
