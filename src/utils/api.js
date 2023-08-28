@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const headers = {
     'Content-Type': 'application/json', // or another content type if needed
-    // other headers set in Postman
+    'Accept': 'application/json',
+    'Access-Control-Allow-Origin': '*'
 };
 
 export const submitStudentData = async (data) => {
