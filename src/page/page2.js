@@ -85,19 +85,23 @@ function Page2() {
                 hintButtonClicks: -1
             }
         });
-
-        submitStudentData(data)
-            .then(response => {
-                console.log("Feedback submitted successfully!")
-                console.log("data: ", data)
-                console.log(response);
-            })
-            .catch(error => {
-                console.log("Error submitting feedback!");
-                console.log("data: ", data)
-                console.log(error);
-            });
     };
+
+        useEffect(() => {
+        if (data.page.studentHint) {  // Check that the studentHint is set
+            submitStudentData(data)
+                .then(response => {
+                    console.log("Feedback submitted successfully!")
+                    console.log("data: ", data)
+                    console.log(response);
+                })
+                .catch(error => {
+                    console.log("Error submitting feedback!");
+                    console.log("data: ", data)
+                    console.log(error);
+                });
+        }
+    }, [data]);
 
     return (
         <Stack spacing={2}>

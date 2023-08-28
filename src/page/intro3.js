@@ -44,7 +44,7 @@ function Intro3() {
                 ...data,
                 intro: {
                     ...data.intro,
-                    timeSpent,
+                    timeSpent: timeSpentCalculated,
                     warningCount,
                     hint,
                 }

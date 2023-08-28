@@ -7,7 +7,7 @@ import ToggleButtonGroup from '../components/ToggleButtonGroup';
 import CodeDisplay from '../components/CodeDisplay';
 import ChatGPTHint from '../components/ChatGPTHint';
 import EditorForm from '../components/EditorForm';
-import { submitStudentData, fetchCodeHint } from '../utils/api';
+import {submitStudentData, fetchCodeHint} from '../utils/api';
 import Typography from '@mui/material/Typography';
 import {useSurveyData} from "../SurveyDataContext";
 
@@ -73,19 +73,23 @@ function Page3() {
                 hintButtonClicks: 0
             }
         });
-
-        submitStudentData(data)
-            .then(response => {
-                console.log("Feedback submitted successfully!")
-                console.log("data: ", data)
-                console.log(response);
-            })
-            .catch(error => {
-                console.log("Error submitting feedback!");
-                console.log("data: ", data)
-                console.log(error);
-            });
     };
+
+    useEffect(() => {
+        if (data.page.studentHint) {  // Check that the studentHint is set
+            submitStudentData(data)
+                .then(response => {
+                    console.log("Feedback submitted successfully!")
+                    console.log("data: ", data)
+                    console.log(response);
+                })
+                .catch(error => {
+                    console.log("Error submitting feedback!");
+                    console.log("data: ", data)
+                    console.log(error);
+                });
+        }
+    }, [data]);
 
     return (
         <Stack spacing={2}>
