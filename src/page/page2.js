@@ -12,14 +12,15 @@ import Typography from '@mui/material/Typography';
 import { useSurveyData } from "../SurveyDataContext";
 
 function Page2() {
+    // Fetch code hint from backend
     const [incorrectCodeArray, setIncorrectCodeArray] = useState([]);
-
+    const [chatGPTHint, setChatGPTHint] = useState("");
     useEffect(() => {
         const fetchData = async () => {
             const data = await fetchCodeHint();
-            console.log(data)
-            if (data && data["source"]) {
+            if (data && data["source"] && data["chatGPT_hint"]) {
                 setIncorrectCodeArray(data["source"]);
+                setChatGPTHint(data["chatGPT_hint"]);
             }
         };
 
@@ -43,57 +44,14 @@ function Page2() {
         "    return answer_chickenpox_by_sex()\n",
         "    ### END SOLUTION"
     ];
-    // const incorrectCodeArray = [
-    //     "def chickenpox_by_sex():\n",
-    //     "    \"\"\"\n",
-    //     "    Calculate the ratio of the number of children who contracted chickenpox but were vaccinated against it (at least one varicella dose) versus those who were vaccinated but \n",
-    //     "    did not contract chicken pox. Return results by sex.\n",
-    //     "    This function should return a dictionary in the form of (use the correct numbers):\n",
-    //     "\n",
-    //     "    {\"male\":0.2,\n",
-    //     "    \"female\":0.4}\n",
-    //     "    \n",
-    //     "    HAD_CPOX : CHILD EVER HAD CHICKEN POX DISEASE\n",
-    //     "        1 : \"yes\"\n",
-    //     "        2 : No\n",
-    //     "        77 : Don't Know\n",
-    //     "        99 : Refused\n",
-    //     "    SEX : SEX OF CHILD: IMPUTED\n",
-    //     "        1 : Male\n",
-    //     "        2 : Female \n",
-    //     "    P_NUMVRC : NUMBER OF VARICELLA-CONTAINING SHOTS BY 36 MONTHS OF AGE DETERMINED FROM PROVIDER INFO\n",
-    //     "    \n",
-    //     "    target 0.00779 for female\n",
-    //     "    \"\"\"\n",
-    //     "    import pandas as pd\n",
-    //     "    import numpy as np\n",
-    //     "    #raise NotImplementedError()\n",
-    //     "    csv_path = r\"assets/NISPUF17.csv\"\n",
-    //     "    df = pd.read_csv(csv_path)\n",
-    //     "    df.replace({77:np.nan, 99:np.nan}, inplace = True)\n",
-    //     "    df.dropna(subset=[\"HAD_CPOX\", \"P_NUMVRC\"], inplace=True)\n",
-    //     "    vacc_df = df.where((df[\"P_NUMVRC\"] != 0)).dropna(subset=[\"P_NUMVRC\"])\n",
-    //     "    \n",
-    //     "    # get female ratio\n",
-    //     "    female_vacc_df = vacc_df.where((vacc_df[\"SEX\"] == 2)).dropna(subset=[\"SEX\"])\n",
-    //     "    fem_ratio = (female_vacc_df[\"HAD_CPOX\"] == 1).value_counts(True)[True]\n",
-    //     "    \n",
-    //     "    # get male ratio\n",
-    //     "    male_vacc_df = vacc_df.where((vacc_df[\"SEX\"] == 1)).dropna(subset=[\"SEX\"])\n",
-    //     "    m_ratio = (male_vacc_df[\"HAD_CPOX\"] == 1).value_counts(True)[True]\n",
-    //     "    \n",
-    //     "    return {\"male\": m_ratio, \"female\":fem_ratio}"
-    // ];
-
     const correctCode = correctCodeArray.join("");
     const incorrectCode = incorrectCodeArray.join("");
 
+    const {data, setData} = useSurveyData();
+    const [startTime, setStartTime] = useState(null);
     const [showChatGPTHint, setShowChatGPTHint] = useState(true);
-
     const [hint, setHint] = useState(/* ... (same as before) ... */);
 
-    const [startTime, setStartTime] = useState(null);
-    const {data, setData} = useSurveyData();
 
     useEffect(() => {
         setStartTime(Date.now());
@@ -118,7 +76,7 @@ function Page2() {
             ...data,
             page: {
                 ...data.page,
-                chatGPTHint: hint,
+                chatGPTHint: chatGPTHint,
                 correctCode,
                 incorrectCode,
                 studentHint: hint,
@@ -211,7 +169,7 @@ function Page2() {
                     <Typography paragraph style={{fontSize: 18}}>
                         Here is the hint provided by ChatGPT for Solution A.
                     </Typography>
-                    <ChatGPTHint showChatGPTHint={showChatGPTHint}/>
+                    <ChatGPTHint showChatGPTHint={showChatGPTHint} ChatGPTHint={chatGPTHint}/>
                     <Typography paragraph style={{fontSize: 18}}>
                         Go through the hint that you originally wrote and compare it with the ChatGPT hint. Verify the correctness of the ChatGPT hint and check if there is anything missing in either of the hints.
                     </Typography>

@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import ChatIcon from '@mui/icons-material/Chat';
 
-function ChatGPTHint({ showChatGPTHint }) {
+function ChatGPTHint({ showChatGPTHint, ChatGPTHint }) {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '20px 0' }}>
             {showChatGPTHint && (
@@ -17,7 +17,7 @@ function ChatGPTHint({ showChatGPTHint }) {
                             ChatGPT:
                         </Typography>
                         <Typography style={{ marginTop: 5 }}>
-                            This is where ChatGPT's hint will appear.
+                            {ChatGPTHint}
                         </Typography>
                     </Paper>
                 </div>
