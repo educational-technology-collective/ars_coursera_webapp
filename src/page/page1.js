@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import {useSurveyData} from "../SurveyDataContext";
 
 function Page1() {
-        const correctCodeArray = [
+    const correctCodeArray = [
         "def chickenpox_by_sex():\n",
         "    ### BEGIN SOLUTION\n",
         "    def answer_chickenpox_by_sex():\n",

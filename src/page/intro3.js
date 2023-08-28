@@ -113,6 +113,9 @@ function Intro3() {
                     <b> What do you think is a good hint for someone who wrote
                         Solution A? </b>
                 </Typography>
+                <Typography paragraph style={{fontSize: 12}}>
+                    <i> (Note: This is only a practice task. The actual task will be similar to this.) </i>
+                </Typography>
                 <TextareaAutosize
                     value={hint}
                     onChange={(e) => setHint(e.target.value)}
