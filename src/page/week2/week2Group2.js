@@ -3,26 +3,30 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import CodeDisplay from '../components/CodeDisplay';
-import EditorForm from '../components/EditorForm';
-import {submitStudentData, fetchCodeHint} from '../utils/api';
+import ToggleButtonGroup from '../../components/ToggleButtonGroup';
+import CodeDisplay from '../../components/CodeDisplay';
+import ChatGPTHint from '../../components/ChatGPTHint';
+import EditorForm from '../../components/EditorForm';
+import { submitStudentData, fetchCodeHint } from '../../utils/api';
 import Typography from '@mui/material/Typography';
-import {useSurveyData} from "../SurveyDataContext";
+import { useSurveyData } from "../../SurveyDataContext";
 
-function Page3() {
+function Week2Group2() {
     // Fetch code hint from backend
     const [incorrectCodeArray, setIncorrectCodeArray] = useState([]);
+    const [chatGPTHint, setChatGPTHint] = useState("");
     useEffect(() => {
         const fetchData = async () => {
             const data = await fetchCodeHint();
-            console.log(data)
-            if (data && data["source"]) {
+            if (data && data["source"] && data["chatGPT_hint"]) {
                 setIncorrectCodeArray(data["source"]);
+                setChatGPTHint(data["chatGPT_hint"]);
             }
         };
 
         fetchData();
     }, []);
+
     const correctCodeArray = [
         "def chickenpox_by_sex():\n",
         "    ### BEGIN SOLUTION\n",
@@ -43,32 +47,42 @@ function Page3() {
     const correctCode = correctCodeArray.join("");
     const incorrectCode = incorrectCodeArray.join("");
 
-
-    const {data, setData} = useSurveyData(); // Use the data if needed
-    const [timeEntered, setTimeEntered] = useState(Date.now());
+    const {data, setData} = useSurveyData();
+    const [startTime, setStartTime] = useState(null);
+    const [showChatGPTHint, setShowChatGPTHint] = useState(true);
     const [hint, setHint] = useState(/* ... (same as before) ... */);
 
+
     useEffect(() => {
-        setTimeEntered(Date.now());
+        setStartTime(Date.now());
+        return () => setStartTime(null);
     }, []);
 
-    const handleSubmit = (event) => {
+    const [showSecondPart, setShowSecondPart] = useState(false);
+    const [revisedHint, setRevisedHint] = useState(''); // For the revised hint
+
+    const handleInitialSubmit = (event) => {
+        event.preventDefault();
+        setShowSecondPart(true);
+    };
+
+    const handleFinalSubmit = (event) => {
         event.preventDefault();
 
-        const timeExited = Date.now();
-        const timeSpentCalculated = (timeExited - timeEntered) / 1000;
+        const timeSpent = Date.now() - startTime;
+        const timeSpentCalculated = timeSpent / 1000;
 
         setData({
             ...data,
             page: {
                 ...data.page,
-                chatGPTHint: "",
+                chatGPTHint: chatGPTHint,
                 correctCode,
                 incorrectCode,
                 studentHint: hint,
-                studentRevisedHint: "",
+                studentRevisedHint: revisedHint,
                 timeSpent: timeSpentCalculated,
-                hintButtonClicks: 0
+                hintButtonClicks: -1
             }
         });
     };
@@ -124,10 +138,7 @@ function Page3() {
 
                 <Typography paragraph style={{fontSize: 18}}>
                     Please go through Solution A and identify the mistakes in
-                    it. You can compare with Solution B, which is correct.
-                    Assume that all the relevant libraries such as pandas and
-                    NumPy are already imported, even if you don’t see that in
-                    Solution A.
+                    it. You can compare with Solution B, which is correct. Assume that all the relevant libraries such as pandas and NumPy are already imported, even if you don’t see that in Solution A.
                 </Typography>
             </Box>
 
@@ -159,16 +170,48 @@ function Page3() {
 
             <EditorForm hint={hint} setHint={setHint}/>
 
-            <Grid container justifyContent="space-between">
-                <Grid item>
-                    <Button onClick={handleSubmit} variant="contained"
-                            color="primary">
-                        Submit
-                    </Button>
+            {showSecondPart ? (
+                <>
+                    <Typography paragraph style={{fontSize: 18}}>
+                        Here is the hint provided by ChatGPT for Solution A.
+                    </Typography>
+                    <ChatGPTHint showChatGPTHint={showChatGPTHint} ChatGPTHint={chatGPTHint}/>
+                    <Typography paragraph style={{fontSize: 18}}>
+                        Go through the hint that you originally wrote and compare it with the ChatGPT hint. Verify the correctness of the ChatGPT hint and check if there is anything missing in either of the hints.
+                    </Typography>
+                    <Typography paragraph style={{fontSize: 18}}>
+                        <b> Now, rewrite a hint for Solution A. </b>
+                    </Typography>
+                    <EditorForm hint={revisedHint}
+                                setHint={setRevisedHint}/> {/* Separate EditorForm for the revised hint */}
+                    <Grid container justifyContent="space-between">
+                        <Grid item>
+                            <ToggleButtonGroup
+                                showChatGPTHint={showChatGPTHint}
+                                setShowChatGPTHint={setShowChatGPTHint}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Button onClick={handleFinalSubmit}
+                                    variant="contained" color="primary">
+                                Submit Final Hint
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </>
+            ) : (
+                <Grid container
+                      justifyContent="flex-start"> {/* This line is changed to justifyContent="flex-start" */}
+                    <Grid item>
+                        <Button onClick={handleInitialSubmit}
+                                variant="contained" color="primary">
+                            Next
+                        </Button>
+                    </Grid>
                 </Grid>
-            </Grid>
+            )}
         </Stack>
     );
 }
 
-export default Page3;
+export default Week2Group2;

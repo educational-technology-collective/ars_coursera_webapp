@@ -8,7 +8,7 @@ import {
     Paper,
     Container
 } from '@mui/material';
-import { useSurveyData } from "../SurveyDataContext";
+import { useSurveyData } from "../../SurveyDataContext";
 
 function hashEmail(email) {
     let hash = 0;
@@ -19,7 +19,7 @@ function hashEmail(email) {
     return Math.abs(hash);
 }
 
-function EmailForm() {
+function Week3EmailForm() {
     const [email, setEmail] = useState('');
     const { data, setData } = useSurveyData();
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ function EmailForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const hashedValue = hashEmail(email);
-        const route = ['/intro1', '/intro2', '/intro3'][hashedValue % 3];
+        const route = ['/week3-intro1', '/week3-intro2', '/week3-intro3'][hashedValue % 3];
 
         setData({
             ...data,
@@ -68,4 +68,4 @@ function EmailForm() {
     );
 }
 
-export default EmailForm;
+export default Week3EmailForm;

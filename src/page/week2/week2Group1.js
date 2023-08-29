@@ -3,15 +3,15 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import ToggleButtonGroup from '../components/ToggleButtonGroup';
-import CodeDisplay from '../components/CodeDisplay';
-import ChatGPTHint from '../components/ChatGPTHint';
-import EditorForm from '../components/EditorForm';
-import {submitStudentData, fetchCodeHint} from '../utils/api';
+import ToggleButtonGroup from '../../components/ToggleButtonGroup';
+import CodeDisplay from '../../components/CodeDisplay';
+import ChatGPTHint from '../../components/ChatGPTHint';
+import EditorForm from '../../components/EditorForm';
+import {submitStudentData, fetchCodeHint} from '../../utils/api';
 import Typography from '@mui/material/Typography';
-import {useSurveyData} from "../SurveyDataContext";
+import {useSurveyData} from "../../SurveyDataContext";
 
-function Page1() {
+function Week2Group1() {
     // Fetch code hint from backend
     const [incorrectCodeArray, setIncorrectCodeArray] = useState([]);
     const [chatGPTHint, setChatGPTHint] = useState("");
@@ -182,4 +182,4 @@ function Page1() {
     </Stack>);
 }
 
-export default Page1;
+export default Week2Group1;
