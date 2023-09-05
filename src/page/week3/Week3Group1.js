@@ -19,7 +19,6 @@ function Week3Group1() {
     React.useEffect(() => {
         const firstVisit = localStorage.getItem('firstVisit');
         if (!firstVisit) {
-            setOpen(true);
             localStorage.setItem('firstVisit', '1');
         }
     }, []);
