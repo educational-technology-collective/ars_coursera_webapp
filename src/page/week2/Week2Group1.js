@@ -74,7 +74,7 @@ function Week2Group1() {
         if (hint.length > 50) {
             setData({
                 ...data,
-                page: {
+                mainActivity: {
                     ...data.page,
                     chatGPTHint: chatGPTHint,
                     correctCode,

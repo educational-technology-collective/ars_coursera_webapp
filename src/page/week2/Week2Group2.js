@@ -87,7 +87,7 @@ function Week2Group2() {
 
             setData({
                 ...data,
-                page: {
+                mainActivity: {
                     ...data.page,
                     chatGPTHint: chatGPTHint,
                     correctCode,
