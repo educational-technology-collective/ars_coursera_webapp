@@ -1,12 +1,12 @@
 import React from 'react';
 import {createBrowserRouter, RouterProvider, Link} from 'react-router-dom';
 import Week2EmailForm from "./page/week2/Week2EmailForm";
-import Week2Group1 from './page/week2/week2Group1';
+import Week2Group1 from './page/week2/Week2Group1';
 import Week2Group2 from './page/week2/week2Group2';
 import Week2Group3 from './page/week2/week2Group3';
-import Week2Intro1 from './page/week2/week2Intro1';
-import Week2Intro2 from './page/week2/week2Intro2';
-import Week2Intro3 from './page/week2/week2Intro3';
+import Week2Intro1 from './page/week2/Week2Intro1';
+import Week2Intro2 from './page/week2/Week2Intro2';
+import Week2Intro3 from './page/week2/Week2Intro3';
 
 import Week3EmailForm from "./page/week3/Week3EmailForm";
 import Week3Group1 from './page/week3/week3Group1';

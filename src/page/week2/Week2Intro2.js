@@ -16,7 +16,7 @@ import {
 import { useSurveyData } from "../../SurveyDataContext";
 
 
-function Week2Intro3() {
+function Week2Intro2() {
 
     const [hint, setHint] = useState('');
     const [showInstructions, setShowInstructions] = useState(false);
@@ -27,9 +27,7 @@ function Week2Intro3() {
     const { data, setData } = useSurveyData();
 
     useEffect(() => {
-        // set start time when the component mounts
         setStartTime(Date.now());
-        // cleanup function to stop timer when component unmounts
         return () => setStartTime(null);
     }, []);
 
@@ -59,7 +57,7 @@ function Week2Intro3() {
         <Stack spacing={2}>
             <Box p={3}>
                 <Typography variant="h4" gutterBottom>
-                    Assignment Reflection Instruction
+                    Assignment Reflection 2 Instruction
                 </Typography>
                 <Typography paragraph style={{ fontSize: 18 }}>
                     Well done on submitting two of the four programming
@@ -74,6 +72,9 @@ function Week2Intro3() {
                     and
                     <b> write a hint such that someone who wrote the incorrect solution can use it to identify their mistake and fix their code.
                     </b>
+                </Typography>
+                <Typography paragraph style={{ fontSize: 18 }}>
+                    In this task, you will first write a hint on your own. Then, to help you improve your hint, you will be shown a hint written for the same incorrect code by <b>ChatGPT</b>, a popular AI chatbot that uses natural language processing to create humanlike conversational dialogue. Then, you will be prompted to rewrite your hint such that it improves upon your original hint and the ChatGPT hint. Note that the ChatGPT hint could be incorrect, incomplete, or both.
                 </Typography>
                 <Typography paragraph style={{ fontSize: 18 }}>
                     This activity will encourage you to think critically, learn from
@@ -94,7 +95,7 @@ function Week2Intro3() {
                         the problem statement.</li>
             </ul>
                 </Typography>
-            </Box>
+                </Box>
                 <Typography paragraph style={{ fontSize: 18 }}>
                     <b> Let's go through a simple example </b>
                     to learn more about this exercise. Consider the first question
@@ -147,7 +148,7 @@ function Week2Intro3() {
                         To fix your solution, remove the filter df["C5R"]==1
                     for the computation of a1.
                     </Typography>
-                    <Link to="/week2-group3">
+                    <Link to="/week2-group2">
                         <Button variant="contained" color="primary">
                             Next
                         </Button>
@@ -177,4 +178,4 @@ function Week2Intro3() {
 }
 
 
-export default Week2Intro3;
+export default Week2Intro2;
