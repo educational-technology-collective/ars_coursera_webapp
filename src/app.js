@@ -3,7 +3,7 @@ import {createBrowserRouter, RouterProvider, Link} from 'react-router-dom';
 import Week2EmailForm from "./page/week2/Week2EmailForm";
 import Week2Group1 from './page/week2/Week2Group1';
 import Week2Group2 from './page/week2/week2Group2';
-import Week2Group3 from './page/week2/week2Group3';
+import Week2Group3 from './page/week2/Week2Group3';
 import Week2Intro1 from './page/week2/Week2Intro1';
 import Week2Intro2 from './page/week2/Week2Intro2';
 import Week2Intro3 from './page/week2/Week2Intro3';

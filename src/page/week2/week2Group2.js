@@ -137,8 +137,8 @@ function Week2Group2() {
                 </Typography>
 
                 <Typography paragraph style={{fontSize: 18}}>
-                    Please go through Solution A and identify the mistakes in
-                    it. You can compare with Solution B, which is correct. Assume that all the relevant libraries such as pandas and NumPy are already imported, even if you don’t see that in Solution A.
+                    <b>Please go through Solution A and identify the mistakes in
+                    it.</b> You can compare with Solution B, which is correct. Assume that all the relevant libraries such as pandas and NumPy are already imported, even if you don’t see that in Solution A.
                 </Typography>
             </Box>
 
