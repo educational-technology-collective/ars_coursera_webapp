@@ -9,6 +9,13 @@ import EditorForm from '../../components/EditorForm';
 import {submitStudentData, fetchCodeHint} from '../../utils/api';
 import Typography from '@mui/material/Typography';
 import {useSurveyData} from "../../SurveyDataContext";
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle
+} from "@mui/material";
 
 function Week2Group3() {
     const navigate = useNavigate();
@@ -50,7 +57,9 @@ function Week2Group3() {
 
     const {data, setData} = useSurveyData(); // Use the data if needed
     const [timeEntered, setTimeEntered] = useState(Date.now());
-    const [hint, setHint] = useState(/* ... (same as before) ... */);
+    const [hint, setHint] = useState("");
+    const [openDialog, setOpenDialog] = useState(false);
+    const [warningCount, setWarningCount] = useState(0);
 
     useEffect(() => {
         setTimeEntered(Date.now());
@@ -59,24 +68,32 @@ function Week2Group3() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        const timeExited = Date.now();
-        const timeSpentCalculated = (timeExited - timeEntered) / 1000;
+        if (hint.length > 50) {
 
-        setData({
-            ...data,
-            page: {
-                ...data.page,
-                chatGPTHint: "",
-                correctCode,
-                incorrectCode,
-                studentHint: hint,
-                studentRevisedHint: "",
-                timeSpent: timeSpentCalculated,
-                hintButtonClicks: 0
-            }
-        });
+            const timeExited = Date.now();
+            const timeSpentCalculated = (timeExited - timeEntered) / 1000;
 
-        navigate("/thankyou");
+            setData({
+                ...data,
+                page: {
+                    ...data.page,
+                    chatGPTHint: "",
+                    correctCode,
+                    incorrectCode,
+                    studentHint: hint,
+                    studentRevisedHint: "",
+                    timeSpent: timeSpentCalculated,
+                    hintButtonClicks: 0
+                }
+            });
+
+            navigate("/thankyou");
+        } else {
+            setOpenDialog(true);
+            setWarningCount(warningCount + 1);
+        }
+
+
     };
 
     useEffect(() => {
@@ -174,6 +191,24 @@ function Week2Group3() {
                     </Button>
                 </Grid>
             </Grid>
+
+            <Dialog
+                open={openDialog}
+                onClose={() => setOpenDialog(false)}
+            >
+                <DialogTitle>{"Attention!"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Please provide a more detailed hint.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpenDialog(false)}
+                            color="primary">
+                        Okay
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Stack>
     );
 }
