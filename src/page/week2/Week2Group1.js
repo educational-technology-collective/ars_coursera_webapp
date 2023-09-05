@@ -25,6 +25,7 @@ function Week2Group1() {
     // Fetch code hint from backend
     const [incorrectCodeArray, setIncorrectCodeArray] = useState([]);
     const [chatGPTHint, setChatGPTHint] = useState("");
+
     useEffect(() => {
         const fetchData = async () => {
             const data = await fetchCodeHint();
@@ -57,7 +58,7 @@ function Week2Group1() {
     const correctCode = correctCodeArray.join("");
     const incorrectCode = incorrectCodeArray.join("");
 
-    const {data, setData} = useSurveyData(); // Use the data if needed
+    const {data = { mainActivity: {} }, setData} = useSurveyData(); // Use the data if needed
     const [timeEntered, setTimeEntered] = useState(Date.now());
     const [showChatGPTHint, setShowChatGPTHint] = useState(false);
     const [hint, setHint] = useState("");
@@ -72,10 +73,14 @@ function Week2Group1() {
         event.preventDefault();
 
         if (hint.length > 50) {
+
+            const timeExited = Date.now();
+            const timeSpentCalculated = (timeExited - timeEntered) / 1000;
+
             setData({
                 ...data,
                 mainActivity: {
-                    ...data.page,
+                    ...data.mainActivity,
                     chatGPTHint: chatGPTHint,
                     correctCode,
                     incorrectCode,
@@ -86,29 +91,26 @@ function Week2Group1() {
                     hintButtonClicks: -1
                 }
             });
-
-            navigate("/thankyou");
         } else {
             setOpenDialog(true);
             setWarningCount(warningCount + 1);
         }
-
-        const timeExited = Date.now();
-        const timeSpentCalculated = (timeExited - timeEntered) / 1000;
     };
 
     useEffect(() => {
-        if (data.page.studentHint) {  // Check that the studentHint is set
+        if (data && data.mainActivity && data.mainActivity.studentHint) {  // Check that the studentHint is set
             submitStudentData(data)
                 .then(response => {
                     console.log("Feedback submitted successfully!")
                     console.log("data: ", data)
                     console.log(response);
+                    navigate("/thankyou");
                 })
                 .catch(error => {
                     console.log("Error submitting feedback!");
                     console.log("data: ", data)
                     console.log(error);
+                    navigate("/thankyou");
                 });
         }
     }, [data]);

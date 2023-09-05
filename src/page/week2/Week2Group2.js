@@ -57,7 +57,7 @@ function Week2Group2() {
     const correctCode = correctCodeArray.join("");
     const incorrectCode = incorrectCodeArray.join("");
 
-    const {data, setData} = useSurveyData();
+    const {data = { mainActivity: {} }, setData} = useSurveyData();
     const [startTime, setStartTime] = useState(null);
     const [showChatGPTHint, setShowChatGPTHint] = useState(true);
     const [hint, setHint] = useState("");
@@ -82,13 +82,14 @@ function Week2Group2() {
         event.preventDefault();
 
         if (revisedHint.length > 50) {
+
             const timeSpent = Date.now() - startTime;
             const timeSpentCalculated = timeSpent / 1000;
 
             setData({
                 ...data,
                 mainActivity: {
-                    ...data.page,
+                    ...data.mainActivity,
                     chatGPTHint: chatGPTHint,
                     correctCode,
                     incorrectCode,
@@ -99,8 +100,6 @@ function Week2Group2() {
                     hintButtonClicks: -1
                 }
             });
-
-            navigate("/thankyou");
         } else {
             setOpenDialog(true);
             setWarningCount(warningCount + 1);
@@ -109,17 +108,19 @@ function Week2Group2() {
     };
 
     useEffect(() => {
-        if (data.page.studentHint) {  // Check that the studentHint is set
+        if (data && data.mainActivity && data.mainActivity.studentHint) {  // Check that the studentHint is set
             submitStudentData(data)
                 .then(response => {
                     console.log("Feedback submitted successfully!")
                     console.log("data: ", data)
                     console.log(response);
+                    navigate("/thankyou");
                 })
                 .catch(error => {
                     console.log("Error submitting feedback!");
                     console.log("data: ", data)
                     console.log(error);
+                    navigate("/thankyou");
                 });
         }
     }, [data]);

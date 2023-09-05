@@ -55,7 +55,7 @@ function Week2Group3() {
     const incorrectCode = incorrectCodeArray.join("");
 
 
-    const {data, setData} = useSurveyData(); // Use the data if needed
+    const {data = { mainActivity: {} }, setData} = useSurveyData(); // Use the data if needed
     const [timeEntered, setTimeEntered] = useState(Date.now());
     const [hint, setHint] = useState("");
     const [openDialog, setOpenDialog] = useState(false);
@@ -76,7 +76,7 @@ function Week2Group3() {
             setData({
                 ...data,
                 mainActivity: {
-                    ...data.page,
+                    ...data.mainActivity,
                     chatGPTHint: "",
                     correctCode,
                     incorrectCode,
@@ -86,8 +86,6 @@ function Week2Group3() {
                     hintButtonClicks: 0
                 }
             });
-
-            navigate("/thankyou");
         } else {
             setOpenDialog(true);
             setWarningCount(warningCount + 1);
@@ -97,17 +95,19 @@ function Week2Group3() {
     };
 
     useEffect(() => {
-        if (data.page.studentHint) {  // Check that the studentHint is set
+        if (data && data.mainActivity && data.mainActivity.studentHint) {  // Check that the studentHint is set
             submitStudentData(data)
                 .then(response => {
                     console.log("Feedback submitted successfully!")
                     console.log("data: ", data)
                     console.log(response);
+                    navigate("/thankyou");
                 })
                 .catch(error => {
                     console.log("Error submitting feedback!");
                     console.log("data: ", data)
                     console.log(error);
+                    navigate("/thankyou");
                 });
         }
     }, [data]);
