@@ -49,6 +49,13 @@ function Week2Intro1() {
                     hint,
                 }
             });
+
+            setTimeout(() => {
+                const element = document.getElementById('scroll-target');
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 100);
         } else {
             setOpenDialog(true);
             setWarningCount(warningCount + 1);
@@ -160,7 +167,7 @@ function Week2Intro1() {
             </Box>
 
             {showInstructions && (
-                <Box p={3}>
+                <Box p={3}  id="scroll-target">
                     <Typography paragraph style={{fontSize: 18}}>A good hint for
                         Solution A would
                         be:</Typography>
