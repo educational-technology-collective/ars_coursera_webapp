@@ -9,14 +9,14 @@ import Week2Intro2 from './page/week2/Week2Intro2';
 import Week2Intro3 from './page/week2/Week2Intro3';
 
 import Week3EmailForm from "./page/week3/Week3EmailForm";
-import Week3Group1 from './page/week3/week3Group1';
-import Week3Group2 from './page/week3/week3Group2';
-import Week3Group3 from './page/week3/week3Group3';
-import Week3Intro1 from './page/week3/week3Intro1';
-import Week3Intro2 from './page/week3/week3Intro2';
-import Week3Intro3 from './page/week3/week3Intro3';
+import Week3Group1 from './page/week3/Week3Group1';
+import Week3Group2 from './page/week3/Week3Group2';
+import Week3Group3 from './page/week3/Week3Group3';
+import Week3Intro1 from './page/week3/Week3Intro1';
+import Week3Intro2 from './page/week3/Week3Intro2';
+import Week3Intro3 from './page/week3/Week3Intro3';
 
-import Survey from "./page/week3/survey";
+import Survey from "./page/week3/SurveyPage";
 import ThankYouPage from "./page/shared/ThankYouPage";
 
 import {SurveyDataProvider} from "./SurveyDataContext";
