@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import {useNavigate} from 'react-router-dom';
 import CodeDisplay from '../../components/CodeDisplay';
 import EditorForm from '../../components/EditorForm';
 import {submitStudentData, fetchCodeHint} from '../../utils/api';
@@ -10,6 +11,8 @@ import Typography from '@mui/material/Typography';
 import {useSurveyData} from "../../SurveyDataContext";
 
 function Week2Group3() {
+    const navigate = useNavigate();
+
     // Fetch code hint from backend
     const [incorrectCodeArray, setIncorrectCodeArray] = useState([]);
     useEffect(() => {
@@ -23,6 +26,7 @@ function Week2Group3() {
 
         fetchData();
     }, []);
+
     const correctCodeArray = [
         "def chickenpox_by_sex():\n",
         "    ### BEGIN SOLUTION\n",
@@ -71,6 +75,8 @@ function Week2Group3() {
                 hintButtonClicks: 0
             }
         });
+
+        navigate("/thankyou");
     };
 
     useEffect(() => {
@@ -124,7 +130,8 @@ function Week2Group3() {
 
                 <Typography paragraph style={{fontSize: 18}}>
                     <b>Please go through Solution A and identify the mistakes in
-                    it.</b> You can compare with Solution B, which is correct.
+                        it.</b> You can compare with Solution B, which is
+                    correct.
                     Assume that all the relevant libraries such as pandas and
                     NumPy are already imported, even if you don’t see that in
                     Solution A.

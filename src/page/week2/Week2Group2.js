@@ -3,15 +3,18 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import {useNavigate} from 'react-router-dom';
 import ToggleButtonGroup from '../../components/ToggleButtonGroup';
 import CodeDisplay from '../../components/CodeDisplay';
 import ChatGPTHint from '../../components/ChatGPTHint';
 import EditorForm from '../../components/EditorForm';
-import { submitStudentData, fetchCodeHint } from '../../utils/api';
+import {submitStudentData, fetchCodeHint} from '../../utils/api';
 import Typography from '@mui/material/Typography';
-import { useSurveyData } from "../../SurveyDataContext";
+import {useSurveyData} from "../../SurveyDataContext";
 
 function Week2Group2() {
+    const navigate = useNavigate();
+
     // Fetch code hint from backend
     const [incorrectCodeArray, setIncorrectCodeArray] = useState([]);
     const [chatGPTHint, setChatGPTHint] = useState("");
@@ -85,6 +88,8 @@ function Week2Group2() {
                 hintButtonClicks: -1
             }
         });
+
+        navigate("/thankyou");
     };
 
     useEffect(() => {
@@ -138,7 +143,10 @@ function Week2Group2() {
 
                 <Typography paragraph style={{fontSize: 18}}>
                     <b>Please go through Solution A and identify the mistakes in
-                    it.</b> You can compare with Solution B, which is correct. Assume that all the relevant libraries such as pandas and NumPy are already imported, even if you don’t see that in Solution A.
+                        it.</b> You can compare with Solution B, which is
+                    correct. Assume that all the relevant libraries such as
+                    pandas and NumPy are already imported, even if you don’t see
+                    that in Solution A.
                 </Typography>
             </Box>
 
@@ -175,9 +183,13 @@ function Week2Group2() {
                     <Typography paragraph style={{fontSize: 18}}>
                         Here is the hint provided by ChatGPT for Solution A.
                     </Typography>
-                    <ChatGPTHint showChatGPTHint={showChatGPTHint} ChatGPTHint={chatGPTHint}/>
+                    <ChatGPTHint showChatGPTHint={showChatGPTHint}
+                                 ChatGPTHint={chatGPTHint}/>
                     <Typography paragraph style={{fontSize: 18}}>
-                        Go through the hint that you originally wrote and compare it with the ChatGPT hint. Verify the correctness of the ChatGPT hint and check if there is anything missing in either of the hints.
+                        Go through the hint that you originally wrote and
+                        compare it with the ChatGPT hint. Verify the correctness
+                        of the ChatGPT hint and check if there is anything
+                        missing in either of the hints.
                     </Typography>
                     <Typography paragraph style={{fontSize: 18}}>
                         <b> Now, rewrite a hint for Solution A. </b>
