@@ -64,7 +64,7 @@ function Week2Intro2() {
         <Stack spacing={2}>
             <Box p={3}>
                 <Typography variant="h4" gutterBottom>
-                    Assignment Reflection 2 Instruction
+                    Reflection 2
                 </Typography>
                 <Typography paragraph style={{ fontSize: 18 }}>
                     Well done on submitting two of the four programming
