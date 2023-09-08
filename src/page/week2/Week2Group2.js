@@ -45,48 +45,50 @@ function Week2Group2() {
     const [revisedHint, setRevisedHint] = useState('');
 
 
-    useEffect(async () => {
+    useEffect(() => {
+        const fetchData = async () => {
+            const studentId = data["studentId"];
+            console.log("studentId: ", studentId);
 
-        const studentId = data["studentId"];
-        console.log("studentId: ", studentId)
-
-        // First check if the student code is correct, if it is, call the backend to fetch the correct code
-        const ifStudentCodeIsCorrect = await checkIfStudentCodeIsCorrect(studentId);
-        if (ifStudentCodeIsCorrect) {
-            setIfCorrectCode(true);
-            const correctCode = await fetchStudentCorrectCode(studentId, "cell-a0a9e6fe67698002");
-            console.log("correctCode: ", correctCode)
-            if (correctCode) {
-                setCorrectCodeArray(correctCode);
-            }
-        } else {
+            // First check if the student code is correct, if it is, call the backend to fetch the correct code
+            const ifStudentCodeIsCorrect = await checkIfStudentCodeIsCorrect(studentId);
+            if (ifStudentCodeIsCorrect) {
+                setIfCorrectCode(true);
+                const correctCode = await fetchStudentCorrectCode(studentId, "cell-a0a9e6fe67698002");
+                console.log("correctCode: ", correctCode);
+                if (correctCode) {
+                    setCorrectCodeArray(correctCode);
+                }
+            } else {
                 setCorrectCodeArray(
                     [
-                        "def chickenpox_by_sex():\n",
-                        "    ### BEGIN SOLUTION\n",
-                        "    def answer_chickenpox_by_sex():\n",
-                        "        import pandas as pd\n",
-                        "        import numpy as np\n",
-                        "\n",
-                        "        df=pd.read_csv(\"assets/NISPUF17.csv\")\n",
-                        "\n",
-                        "        male=len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
-                        "        female=len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
-                        "        \n",
-                        "        return {\"male\": male, \"female\": female}\n",
-                        "\n",
-                        "    return answer_chickenpox_by_sex()\n",
-                        "    ### END SOLUTION"
+                                            "def chickenpox_by_sex():\n",
+                    "    ### BEGIN SOLUTION\n",
+                    "    def answer_chickenpox_by_sex():\n",
+                    "        import pandas as pd\n",
+                    "        import numpy as np\n",
+                    "\n",
+                    "        df=pd.read_csv(\"assets/NISPUF17.csv\")\n",
+                    "\n",
+                    "        male=len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
+                    "        female=len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
+                    "        \n",
+                    "        return {\"male\": male, \"female\": female}\n",
+                    "\n",
+                    "    return answer_chickenpox_by_sex()\n",
+                    "    ### END SOLUTION"
                     ]
-                )
+                );
             }
 
-        const codeHint = await fetchCodeHint();
-        if (codeHint) {
-            setIncorrectCodeArray(codeHint["source"]);
-            setChatGPTHint(codeHint["chatGPT_hint"]);
-        }
+            const codeHint = await fetchCodeHint();
+            if (codeHint) {
+                setIncorrectCodeArray(codeHint["source"]);
+                setChatGPTHint(codeHint["chatGPT_hint"]);
+            }
+        };
 
+        fetchData();  // This invokes the async function
     }, []);
 
 
