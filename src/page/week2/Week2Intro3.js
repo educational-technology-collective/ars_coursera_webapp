@@ -121,7 +121,7 @@ function Week2Intro3() {
                     incorrect solution to this question:
                 </Typography>
                 <img
-                    src="https://raw.githubusercontent.com/maizehsu/FigureBed/main/asset/2023/08/22/20230822095525.png"
+                    src="https://raw.githubusercontent.com/maizehsu/FigureBed/main/asset/2023/09/07/20230907235228.png"
                     alt="Example Solution"
                     style={{width: '100%'}}/>
             </Box>
