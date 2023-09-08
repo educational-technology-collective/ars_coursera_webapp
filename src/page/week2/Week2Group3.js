@@ -6,7 +6,12 @@ import Box from '@mui/material/Box';
 import {useNavigate} from 'react-router-dom';
 import CodeDisplay from '../../components/CodeDisplay';
 import EditorForm from '../../components/EditorForm';
-import {submitStudentData, fetchCodeHint} from '../../utils/api';
+import {
+    submitStudentData,
+    fetchCodeHint,
+    checkIfStudentCodeIsCorrect,
+    fetchStudentCorrectCode
+} from '../../utils/api';
 import Typography from '@mui/material/Typography';
 import {useSurveyData} from "../../SurveyDataContext";
 import {
@@ -20,42 +25,75 @@ import {
 function Week2Group3() {
     const navigate = useNavigate();
 
-    // Fetch code hint from backend
+    const [correctCodeArray, setCorrectCodeArray] = useState([
+        "Please wait for this code to appear.",
+        "In the meantime, go through the instructions for this task.",
+        "Thanks for being patient!"
+    ]);
+
     const [incorrectCodeArray, setIncorrectCodeArray] = useState([]);
+    const [chatGPTHint, setChatGPTHint] = useState("");
+
+    const [ifCorrectCode, setIfCorrectCode] = useState(false);
+
     useEffect(() => {
+
+        // Trim stuff after @ from data["email"]
+        const email = data["email"]
+        const student_id = email.substring(0, email.indexOf("@"));
+
+        console.log("student_id: ", student_id)
+
+        // First check if the student code is correct, if it is, call the backend to fetch the correct code
+        const ifStudentCodeIsCorrect = async () => {
+            const ifStudentCodeIsCorrect = await checkIfStudentCodeIsCorrect(student_id);
+            if (ifStudentCodeIsCorrect) {
+                setIfCorrectCode(true);
+                const correctCode = await fetchStudentCorrectCode(student_id, "cell-a0a9e6fe67698002");
+                console.log("correctCode: ", correctCode)
+                if (correctCode) {
+                    setCorrectCodeArray(correctCode);
+                } else {
+                    setCorrectCodeArray(
+                        [
+                            "def chickenpox_by_sex():\n",
+                            "    ### BEGIN SOLUTION\n",
+                            "    def answer_chickenpox_by_sex():\n",
+                            "        import pandas as pd\n",
+                            "        import numpy as np\n",
+                            "\n",
+                            "        df=pd.read_csv(\"assets/NISPUF17.csv\")\n",
+                            "\n",
+                            "        male=len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
+                            "        female=len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
+                            "        \n",
+                            "        return {\"male\": male, \"female\": female}\n",
+                            "\n",
+                            "    return answer_chickenpox_by_sex()\n",
+                            "    ### END SOLUTION"
+                        ]
+                    )
+                }
+            }
+        }
+
+        ifStudentCodeIsCorrect();
+
         const fetchData = async () => {
             const data = await fetchCodeHint();
-            console.log(data)
-            if (data && data["source"]) {
+            if (data && data["source"] && data["chatGPT_hint"]) {
                 setIncorrectCodeArray(data["source"]);
+                setChatGPTHint(data["chatGPT_hint"]);
             }
         };
 
         fetchData();
     }, []);
 
-    const correctCodeArray = [
-        "def chickenpox_by_sex():\n",
-        "    ### BEGIN SOLUTION\n",
-        "    def answer_chickenpox_by_sex():\n",
-        "        import pandas as pd\n",
-        "        import numpy as np\n",
-        "\n",
-        "        df=pd.read_csv(\"assets/NISPUF17.csv\")\n",
-        "\n",
-        "        male=len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
-        "        female=len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
-        "        \n",
-        "        return {\"male\": male, \"female\": female}\n",
-        "\n",
-        "    return answer_chickenpox_by_sex()\n",
-        "    ### END SOLUTION"
-    ];
     const correctCode = correctCodeArray.join("");
     const incorrectCode = incorrectCodeArray.join("");
 
-
-    const {data = { mainActivity: {} }, setData} = useSurveyData(); // Use the data if needed
+    const {data = {mainActivity: {}}, setData} = useSurveyData(); // Use the data if needed
     const [timeEntered, setTimeEntered] = useState(Date.now());
     const [hint, setHint] = useState("");
     const [openDialog, setOpenDialog] = useState(false);
@@ -147,12 +185,17 @@ function Week2Group3() {
 
                 <Typography paragraph style={{fontSize: 18}}>
                     <b>Please go through Solution A and identify the mistakes in
-                        it.</b> You can compare with Solution B, which is
-                    correct.
+                        it.</b>
+                    {
+                        ifCorrectCode
+                            ? "You can compare with Solution B, which is the correct solution that you submitted."
+                            : "You can compare with Solution B, which is correct."
+                    }
                     Assume that all the relevant libraries such as pandas and
                     NumPy are already imported, even if you don’t see that in
                     Solution A.
                 </Typography>
+
             </Box>
 
             <Grid container spacing={2} bgcolor="#f5f5f5">

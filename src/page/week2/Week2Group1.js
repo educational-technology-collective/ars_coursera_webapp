@@ -8,7 +8,12 @@ import ToggleButtonGroup from '../../components/ToggleButtonGroup';
 import CodeDisplay from '../../components/CodeDisplay';
 import ChatGPTHint from '../../components/ChatGPTHint';
 import EditorForm from '../../components/EditorForm';
-import {submitStudentData, fetchCodeHint} from '../../utils/api';
+import {
+    submitStudentData,
+    fetchCodeHint,
+    checkIfStudentCodeIsCorrect,
+    fetchStudentCorrectCode
+} from '../../utils/api';
 import Typography from '@mui/material/Typography';
 import {useSurveyData} from "../../SurveyDataContext";
 import {
@@ -23,22 +28,7 @@ function Week2Group1() {
     const navigate = useNavigate();
 
     // Fetch code hint from backend
-    const [incorrectCodeArray, setIncorrectCodeArray] = useState([]);
-    const [chatGPTHint, setChatGPTHint] = useState("");
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const data = await fetchCodeHint();
-            if (data && data["source"] && data["chatGPT_hint"]) {
-                setIncorrectCodeArray(data["source"]);
-                setChatGPTHint(data["chatGPT_hint"]);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    const correctCodeArray = [
+    const [correctCodeArray, setCorrectCodeArray] = useState([
         "def chickenpox_by_sex():\n",
         "    ### BEGIN SOLUTION\n",
         "    def answer_chickenpox_by_sex():\n",
@@ -54,11 +44,51 @@ function Week2Group1() {
         "\n",
         "    return answer_chickenpox_by_sex()\n",
         "    ### END SOLUTION"
-    ];
+    ]);
+
+    const [incorrectCodeArray, setIncorrectCodeArray] = useState([]);
+    const [chatGPTHint, setChatGPTHint] = useState("");
+
+    const [ifCorrectCode, setIfCorrectCode] = useState(false);
+
+    useEffect(() => {
+
+        // Trim stuff after @ from data["email"]
+        const email = data["email"]
+        const student_id = email.substring(0, email.indexOf("@"));
+
+        console.log("student_id: ", student_id)
+
+        // First check if the student code is correct, if it is, call the backend to fetch the correct code
+        const ifStudentCodeIsCorrect = async () => {
+            const ifStudentCodeIsCorrect = await checkIfStudentCodeIsCorrect(student_id);
+            if (ifStudentCodeIsCorrect) {
+                setIfCorrectCode(true);
+                const correctCode = await fetchStudentCorrectCode(student_id, "cell-a0a9e6fe67698002");
+                console.log("correctCode: ", correctCode)
+                if (correctCode) {
+                    setCorrectCodeArray(correctCode);
+                }
+            }
+        }
+
+        ifStudentCodeIsCorrect();
+
+        const fetchData = async () => {
+            const data = await fetchCodeHint();
+            if (data && data["source"] && data["chatGPT_hint"]) {
+                setIncorrectCodeArray(data["source"]);
+                setChatGPTHint(data["chatGPT_hint"]);
+            }
+        };
+
+        fetchData();
+    }, []);
+
     const correctCode = correctCodeArray.join("");
     const incorrectCode = incorrectCodeArray.join("");
 
-    const {data = { mainActivity: {} }, setData} = useSurveyData(); // Use the data if needed
+    const {data = {mainActivity: {}}, setData} = useSurveyData(); // Use the data if needed
     const [timeEntered, setTimeEntered] = useState(Date.now());
     const [showChatGPTHint, setShowChatGPTHint] = useState(false);
     const [hint, setHint] = useState("");
@@ -150,11 +180,17 @@ function Week2Group1() {
 
             <Typography paragraph style={{fontSize: 18}}>
                 <b>Please go through Solution A and identify the mistakes in
-                    it.</b> You can compare with Solution B, which is correct.
+                    it.</b>
+                {
+                    ifCorrectCode
+                        ? "You can compare with Solution B, which is the correct solution that you submitted."
+                        : "You can compare with Solution B, which is correct."
+                }
                 Assume that all the relevant libraries such as pandas and
                 NumPy are already imported, even if you don’t see that in
                 Solution A.
             </Typography>
+
         </Box>
 
         <Grid container spacing={2} bgcolor="#f5f5f5">
