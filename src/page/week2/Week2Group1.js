@@ -1,22 +1,24 @@
-import React, {useState, useEffect} from 'react';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import React, { useState, useEffect } from 'react';
+import {
+    Button,
+    Stack,
+    Grid,
+    Box,
+    Typography
+} from '@mui/material';
 import {useNavigate} from 'react-router-dom';
-import ToggleButtonGroup from '../../components/ToggleButtonGroup';
 import CodeDisplay from '../../components/CodeDisplay';
+import AttentionDialog from '../../components/AttentionDialog';
+import MyMDEditor from '../../components/MyMDEditor';
 import ChatGPTHint from '../../components/ChatGPTHint';
-import EditorForm from '../../components/EditorForm';
-import AttentionDialog from "../../components/AttentionDialog";
+import ToggleButtonGroup from '../../components/ToggleButtonGroup';
 import {
     submitStudentData,
     fetchCodeHint,
     checkIfStudentCodeIsCorrect,
     fetchStudentCorrectCode
 } from '../../utils/api';
-import Typography from '@mui/material/Typography';
-import {useSurveyData} from "../../SurveyDataContext";
+import { useSurveyData } from "../../SurveyDataContext";
 
 function Week2Group1() {
     const navigate = useNavigate();
@@ -213,7 +215,7 @@ function Week2Group1() {
             problem completely.
         </Typography>
 
-        <EditorForm hint={hint} setHint={setHint}/>
+        <MyMDEditor hint={hint} setHint={setHint} />
 
         <Grid container justifyContent="space-between">
             <Grid item>

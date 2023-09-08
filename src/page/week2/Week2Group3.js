@@ -5,8 +5,8 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { useNavigate } from 'react-router-dom';
 import CodeDisplay from '../../components/CodeDisplay';
-import EditorForm from '../../components/EditorForm';
-import AttentionDialog  from "../../components/AttentionDialog";
+import AttentionDialog from '../../components/AttentionDialog';
+import MyMDEditor from '../../components/MyMDEditor';
 import {
     submitStudentData,
     fetchCodeHint,
@@ -218,7 +218,7 @@ function Week2Group3() {
                 problem completely.
             </Typography>
 
-            <EditorForm hint={hint} setHint={setHint}/>
+            <MyMDEditor hint={hint} setHint={setHint} />
 
             <Grid container justifyContent="space-between">
                 <Grid item>

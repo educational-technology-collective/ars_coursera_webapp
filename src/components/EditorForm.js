@@ -1,5 +1,5 @@
 import React from 'react';
-import MyMDEditor from "./MDEditor";
+import MyMDEditor from "./MyMDEditor";
 
 function EditorForm({ hint, setHint}) {
     return (
