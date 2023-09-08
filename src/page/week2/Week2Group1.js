@@ -83,16 +83,21 @@ function Week2Group1() {
     const correctCode = correctCodeArray.join("");
     const incorrectCode = incorrectCodeArray.join("");
 
+    // Survey data states
     const {data = {mainActivity: {}}, setData} = useSurveyData(); // Use the data if needed
     const [timeEntered, setTimeEntered] = useState(Date.now());
     const [showChatGPTHint, setShowChatGPTHint] = useState(false);
     const [hint, setHint] = useState("");
-    const [openDialog, setOpenDialog] = useState(false);
     const [warningCount, setWarningCount] = useState(0);
+    const [hintButtonClicks, setHintButtonClicks] = useState(0);
+
 
     useEffect(() => {
         setTimeEntered(Date.now());
     }, []);
+
+    // UI states
+    const [openDialog, setOpenDialog] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -113,7 +118,7 @@ function Week2Group1() {
                     studentRevisedHint: "",
                     timeSpent: timeSpentCalculated,
                     warningCount: warningCount,
-                    hintButtonClicks: -1
+                    hintButtonClicks: hintButtonClicks
                 }
             });
         } else {
@@ -219,7 +224,11 @@ function Week2Group1() {
         <Grid container justifyContent="space-between">
             <Grid item>
                 <Button
-                    onClick={() => setShowChatGPTHint(!showChatGPTHint)}
+                    onClick={() => {
+                        setShowChatGPTHint(!showChatGPTHint)
+                        setHintButtonClicks(prevClicks => prevClicks + 1);
+                    }
+                    }
                     variant="contained"
                     style={{
                         backgroundColor: showChatGPTHint ? 'grey' : '#00cc66',

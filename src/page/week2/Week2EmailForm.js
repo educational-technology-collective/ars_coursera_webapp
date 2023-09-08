@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, {useState} from "react";
+import {useNavigate} from 'react-router-dom';
 import {
     Button,
     TextField,
@@ -8,7 +8,7 @@ import {
     Paper,
     Container
 } from '@mui/material';
-import { useSurveyData } from "../../SurveyDataContext";
+import {useSurveyData} from "../../SurveyDataContext";
 
 function hashEmail(email) {
     let hash = 0;
@@ -21,7 +21,7 @@ function hashEmail(email) {
 
 function Week2EmailForm() {
     const [email, setEmail] = useState('');
-    const { data, setData } = useSurveyData();
+    const {data, setData} = useSurveyData();
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -39,7 +39,7 @@ function Week2EmailForm() {
 
     return (
         <Container component={Paper} maxWidth="sm"
-                   style={{ padding: '24px', marginTop: '50px' }}>
+                   style={{padding: '24px', marginTop: '50px'}}>
             <Typography variant="h5" gutterBottom>
                 Please enter your University of Michigan email
             </Typography>
@@ -59,7 +59,7 @@ function Week2EmailForm() {
                     variant="contained"
                     color="primary"
                     type="submit"
-                    style={{ marginTop: '20px' }}
+                    style={{marginTop: '20px'}}
                 >
                     Submit
                 </Button>
