@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     Button,
     Stack,
@@ -11,14 +11,13 @@ import CodeDisplay from '../../components/CodeDisplay';
 import AttentionDialog from '../../components/AttentionDialog';
 import MyMDEditor from '../../components/MyMDEditor';
 import ChatGPTHint from '../../components/ChatGPTHint';
-import ToggleButtonGroup from '../../components/ToggleButtonGroup';
 import {
     submitStudentData,
     fetchCodeHint,
     checkIfStudentCodeIsCorrect,
     fetchStudentCorrectCode
 } from '../../utils/api';
-import { useSurveyData } from "../../SurveyDataContext";
+import {useSurveyData} from "../../SurveyDataContext";
 
 function Week2Group1() {
     const navigate = useNavigate();
@@ -215,14 +214,20 @@ function Week2Group1() {
             problem completely.
         </Typography>
 
-        <MyMDEditor hint={hint} setHint={setHint} />
+        <MyMDEditor hint={hint} setHint={setHint}/>
 
         <Grid container justifyContent="space-between">
             <Grid item>
-                <ToggleButtonGroup
-                    showChatGPTHint={showChatGPTHint}
-                    setShowChatGPTHint={setShowChatGPTHint}
-                />
+                <Button
+                    onClick={() => setShowChatGPTHint(!showChatGPTHint)}
+                    variant="contained"
+                    style={{
+                        backgroundColor: showChatGPTHint ? 'grey' : '#00cc66',
+                        color: 'white'
+                    }}
+                >
+                    {showChatGPTHint ? 'Hide ChatGPT Hint' : 'Show ChatGPT Hint'}
+                </Button>
             </Grid>
             <Grid item>
                 <Button onClick={handleSubmit} variant="contained"
@@ -235,7 +240,7 @@ function Week2Group1() {
         <ChatGPTHint showChatGPTHint={showChatGPTHint}
                      ChatGPTHint={chatGPTHint}/>
 
-         <AttentionDialog openDialog={openDialog} setOpenDialog={setOpenDialog} />
+        <AttentionDialog openDialog={openDialog} setOpenDialog={setOpenDialog}/>
     </Stack>);
 }
 

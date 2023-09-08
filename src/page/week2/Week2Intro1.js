@@ -5,13 +5,7 @@ import {
     Stack,
     Typography,
     Box,
-    Grid,
     TextareaAutosize,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle
 } from '@mui/material';
 import {useSurveyData} from "../../SurveyDataContext";
 
@@ -20,7 +14,6 @@ function Week2Intro1() {
 
     const [hint, setHint] = useState('');
     const [showInstructions, setShowInstructions] = useState(false);
-    const [openDialog, setOpenDialog] = useState(false);
 
     const [startTime, setStartTime] = useState(null);
     const [warningCount, setWarningCount] = useState(0);
@@ -34,32 +27,27 @@ function Week2Intro1() {
     }, []);
 
     const handleSubmit = () => {
-        if (hint.length > 10) {
-            setShowInstructions(true);
+        setShowInstructions(true);
 
-            const timeSpent = Date.now() - startTime;
-            const timeSpentCalculated = timeSpent / 1000;
+        const timeSpent = Date.now() - startTime;
+        const timeSpentCalculated = timeSpent / 1000;
 
-            setData({
-                ...data,
-                intro: {
-                    ...data.intro,
-                    timeSpent: timeSpentCalculated,
-                    warningCount,
-                    hint,
-                }
-            });
+        setData({
+            ...data,
+            intro: {
+                ...data.intro,
+                timeSpent: timeSpentCalculated,
+                warningCount,
+                hint,
+            }
+        });
 
-            setTimeout(() => {
-                const element = document.getElementById('scroll-target');
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
-            }, 100);
-        } else {
-            setOpenDialog(true);
-            setWarningCount(warningCount + 1);
-        }
+        setTimeout(() => {
+            const element = document.getElementById('scroll-target');
+            if (element) {
+                element.scrollIntoView({behavior: 'smooth'});
+            }
+        }, 100);
     };
 
     return (
@@ -147,7 +135,8 @@ function Week2Intro1() {
                         Solution A? </b>
                 </Typography>
                 <Typography paragraph style={{fontSize: 12}}>
-                    <i> (Note: This is only a practice task. The actual task will be similar to this.) </i>
+                    <i> (Note: This is only a practice task. The actual task
+                        will be similar to this.) </i>
                 </Typography>
                 <TextareaAutosize
                     value={hint}
@@ -167,7 +156,7 @@ function Week2Intro1() {
             </Box>
 
             {showInstructions && (
-                <Box p={3}  id="scroll-target">
+                <Box p={3} id="scroll-target">
                     <Typography paragraph style={{fontSize: 18}}>A good hint for
                         Solution A would
                         be:</Typography>
@@ -189,24 +178,6 @@ function Week2Intro1() {
                     </Link>
                 </Box>
             )}
-
-            <Dialog
-                open={openDialog}
-                onClose={() => setOpenDialog(false)}
-            >
-                <DialogTitle>{"Attention!"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Please provide a more detailed hint.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setOpenDialog(false)}
-                            color="primary">
-                        Okay
-                    </Button>
-                </DialogActions>
-            </Dialog>
         </Stack>
     )
         ;
