@@ -31,7 +31,7 @@ function Week2Group3() {
     ]);
     const [chatGPTHint, setChatGPTHint] = useState("");
     const [ifCorrectCode, setIfCorrectCode] = useState(false);
-    const {data = {mainActivity: {}}, setData} = useSurveyData(); // Use the data if needed
+    const {data = {mainActivityPage: {}}, setData} = useSurveyData(); // Use the data if needed
     const [timeEntered, setTimeEntered] = useState(Date.now());
     const [hint, setHint] = useState("");
     const [openDialog, setOpenDialog] = useState(false);
@@ -39,14 +39,14 @@ function Week2Group3() {
 
     useEffect(async () => {
 
-        const student_id = data["student_id"];
-        console.log("student_id: ", student_id)
+        const studentId = data["studentId"];
+        console.log("studentId: ", studentId)
 
         // First check if the student code is correct, if it is, call the backend to fetch the correct code
-        const ifStudentCodeIsCorrect = await checkIfStudentCodeIsCorrect(student_id);
+        const ifStudentCodeIsCorrect = await checkIfStudentCodeIsCorrect(studentId);
         if (ifStudentCodeIsCorrect) {
             setIfCorrectCode(true);
-            const correctCode = await fetchStudentCorrectCode(student_id, "cell-a0a9e6fe67698002");
+            const correctCode = await fetchStudentCorrectCode(studentId, "cell-a0a9e6fe67698002");
             console.log("correctCode: ", correctCode)
             if (correctCode) {
                 setCorrectCodeArray(correctCode);
@@ -81,8 +81,6 @@ function Week2Group3() {
 
     }, []);
 
-
-
     useEffect(() => {
         setTimeEntered(Date.now());
     }, []);
@@ -94,20 +92,19 @@ function Week2Group3() {
 
             const timeExited = Date.now();
             const timeSpentCalculated = (timeExited - timeEntered) / 1000;
-
             const correctCode = correctCodeArray.join("");
             const incorrectCode = incorrectCodeArray.join("");
-
             setData({
                 ...data,
-                mainActivity: {
-                    ...data.mainActivity,
+                mainActivityPage: {
+                    ...data.mainActivityPage,
                     chatGPTHint: "",
                     correctCode,
                     incorrectCode,
                     studentHint: hint,
                     studentRevisedHint: "",
                     timeSpent: timeSpentCalculated,
+                    warningCount: warningCount,
                     chatGPTHintButtonClicks: 0
                 }
             });
@@ -120,7 +117,7 @@ function Week2Group3() {
     };
 
     useEffect(() => {
-        if (data && data.mainActivity && data.mainActivity.studentHint) {  // Check that the studentHint is set
+        if (data && data.mainActivityPage && data.mainActivityPage.studentHint) {  // Check that the studentHint is set
             submitStudentData(data)
                 .then(response => {
                     console.log("Feedback submitted successfully!")
@@ -172,12 +169,12 @@ function Week2Group3() {
 
                 <Typography paragraph style={{fontSize: 18}}>
                     <b>Please go through Solution A and identify the mistakes in
-                        it.</b>
+                        it.
                     {
                         ifCorrectCode
                             ? "You can compare with Solution B, which is the correct solution that you submitted."
                             : "You can compare with Solution B, which is correct."
-                    }
+                    }</b>
                     Assume that all the relevant libraries such as pandas and
                     NumPy are already imported, even if you don’t see that in
                     Solution A.

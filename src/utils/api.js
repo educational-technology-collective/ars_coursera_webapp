@@ -31,7 +31,7 @@ export const fetchCodeHint = async () => {
 // Check if the student has already submitted code response and his score is 1
 export const checkIfStudentCodeIsCorrect = async (studentId) => {
     try {
-        const response = await axios.get('https://htxfzhw4ee.execute-api.us-east-1.amazonaws.com/week2_if_fetch_student_correct_code', {
+        const response = await axios.get('https://htxfzhw4ee.execute-api.us-east-1.amazonaws.com/if_fetch_student_code', {
             params: {
                 studentId
             }

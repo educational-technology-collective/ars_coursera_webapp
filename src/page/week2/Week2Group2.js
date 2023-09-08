@@ -24,67 +24,70 @@ function Week2Group2() {
 
     // Display data states
     const [correctCodeArray, setCorrectCodeArray] = useState([
-        "def chickenpox_by_sex():\n",
-        "    ### BEGIN SOLUTION\n",
-        "    def answer_chickenpox_by_sex():\n",
-        "        import pandas as pd\n",
-        "        import numpy as np\n",
-        "\n",
-        "        df=pd.read_csv(\"assets/NISPUF17.csv\")\n",
-        "\n",
-        "        male=len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
-        "        female=len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
-        "        \n",
-        "        return {\"male\": male, \"female\": female}\n",
-        "\n",
-        "    return answer_chickenpox_by_sex()\n",
-        "    ### END SOLUTION"
+        "Please wait for this code to appear. \n",
+        "In the meantime, go through the instructions for this task. \n",
+        "Thanks for being patient!"
     ]);
-    const [incorrectCodeArray, setIncorrectCodeArray] = useState([]);
+    const [incorrectCodeArray, setIncorrectCodeArray] = useState([
+        "Please wait for this code to appear. \n",
+        "In the meantime, go through the instructions for this task. \n",
+        "Thanks for being patient!"
+    ]);
     const [chatGPTHint, setChatGPTHint] = useState("");
     const [ifCorrectCode, setIfCorrectCode] = useState(false);
-    useEffect(() => {
-
-        // Trim stuff after @ from data["email"]
-        const email = data["email"]
-        const student_id = email.substring(0, email.indexOf("@"));
-
-        // First check if the student code is correct, if it is, call the backend to fetch the correct code
-        const ifStudentCodeIsCorrect = async () => {
-            const ifStudentCodeIsCorrect = await checkIfStudentCodeIsCorrect(student_id);
-            if (ifStudentCodeIsCorrect) {
-                setIfCorrectCode(true);
-                const correctCode = await fetchStudentCorrectCode(student_id, "cell-a0a9e6fe67698002");
-                if (correctCode) {
-                    setCorrectCodeArray(correctCode);
-                }
-            }
-        }
-
-        ifStudentCodeIsCorrect();
-
-        const fetchData = async () => {
-            const data = await fetchCodeHint();
-            if (data && data["source"] && data["chatGPT_hint"]) {
-                setIncorrectCodeArray(data["source"]);
-                setChatGPTHint(data["chatGPT_hint"]);
-            }
-        };
-
-        fetchData();
-    }, []);
-    const correctCode = correctCodeArray.join("");
-    const incorrectCode = incorrectCodeArray.join("");
-
-
     // Survey data states
-    const {data = {mainActivity: {}}, setData} = useSurveyData();
+    const {data = {mainActivityPage: {}}, setData} = useSurveyData();
     const [startTime, setStartTime] = useState(null);
     const [showChatGPTHint, setShowChatGPTHint] = useState(true);
     const [hint, setHint] = useState("");
     const [hintButtonClicks, setHintButtonClicks] = useState(0);
     const [warningCount, setWarningCount] = useState(0);
     const [revisedHint, setRevisedHint] = useState('');
+
+
+    useEffect(async () => {
+
+        const studentId = data["studentId"];
+        console.log("studentId: ", studentId)
+
+        // First check if the student code is correct, if it is, call the backend to fetch the correct code
+        const ifStudentCodeIsCorrect = await checkIfStudentCodeIsCorrect(studentId);
+        if (ifStudentCodeIsCorrect) {
+            setIfCorrectCode(true);
+            const correctCode = await fetchStudentCorrectCode(studentId, "cell-a0a9e6fe67698002");
+            console.log("correctCode: ", correctCode)
+            if (correctCode) {
+                setCorrectCodeArray(correctCode);
+            }
+        } else {
+                setCorrectCodeArray(
+                    [
+                        "def chickenpox_by_sex():\n",
+                        "    ### BEGIN SOLUTION\n",
+                        "    def answer_chickenpox_by_sex():\n",
+                        "        import pandas as pd\n",
+                        "        import numpy as np\n",
+                        "\n",
+                        "        df=pd.read_csv(\"assets/NISPUF17.csv\")\n",
+                        "\n",
+                        "        male=len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
+                        "        female=len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
+                        "        \n",
+                        "        return {\"male\": male, \"female\": female}\n",
+                        "\n",
+                        "    return answer_chickenpox_by_sex()\n",
+                        "    ### END SOLUTION"
+                    ]
+                )
+            }
+
+        const codeHint = await fetchCodeHint();
+        if (codeHint) {
+            setIncorrectCodeArray(codeHint["source"]);
+            setChatGPTHint(codeHint["chatGPT_hint"]);
+        }
+
+    }, []);
 
 
     useEffect(() => {
@@ -108,11 +111,12 @@ function Week2Group2() {
 
             const timeSpent = Date.now() - startTime;
             const timeSpentCalculated = timeSpent / 1000;
-
+            const correctCode = correctCodeArray.join("");
+            const incorrectCode = incorrectCodeArray.join("");
             setData({
                 ...data,
-                mainActivity: {
-                    ...data.mainActivity,
+                mainActivityPage: {
+                    ...data.mainActivityPage,
                     chatGPTHint: chatGPTHint,
                     correctCode,
                     incorrectCode,
@@ -120,7 +124,7 @@ function Week2Group2() {
                     studentRevisedHint: revisedHint,
                     timeSpent: timeSpentCalculated,
                     warningCount: warningCount,
-                    hintButtonClicks: hintButtonClicks
+                    chatGPTHintButtonClicks: hintButtonClicks
                 }
             });
         } else {
@@ -131,7 +135,7 @@ function Week2Group2() {
     };
 
     useEffect(() => {
-        if (data && data.mainActivity && data.mainActivity.studentRevisedHint) {  // Check that the studentHint is set
+        if (data && data.mainActivityPage && data.mainActivityPage.studentRevisedHint) {  // Check that the studentHint is set
             submitStudentData(data)
                 .then(response => {
                     console.log("Feedback submitted successfully!")
@@ -183,12 +187,12 @@ function Week2Group2() {
 
                 <Typography paragraph style={{fontSize: 18}}>
                     <b>Please go through Solution A and identify the mistakes in
-                        it.</b>
+                        it.
                     {
                         ifCorrectCode
                             ? "You can compare with Solution B, which is the correct solution that you submitted."
                             : "You can compare with Solution B, which is correct."
-                    }
+                    } </b>
                     Assume that all the relevant libraries such as pandas and
                     NumPy are already imported, even if you don’t see that in
                     Solution A.
@@ -199,13 +203,13 @@ function Week2Group2() {
             <Grid container spacing={2} bgcolor="#f5f5f5">
                 <Grid item xs={6}>
                     <CodeDisplay
-                        code={incorrectCode}
+                        code={incorrectCodeArray.join("")}
                         title={"Solution A (Incorrect)"}
                     />
                 </Grid>
                 <Grid item xs={6}>
                     <CodeDisplay
-                        code={correctCode}
+                        code={correctCodeArray.join("")}
                         title={"Solution B (Correct)"}
                     />
                 </Grid>
