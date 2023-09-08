@@ -5,13 +5,7 @@ import {
     Stack,
     Typography,
     Box,
-    Grid,
     TextareaAutosize,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle
 } from '@mui/material';
 import {useSurveyData} from "../../SurveyDataContext";
 
@@ -20,7 +14,6 @@ function Week2Intro3() {
 
     const [studentHint, setStudentHint] = useState('');
     const [showInstructions, setShowInstructions] = useState(false);
-
     const [startTime, setStartTime] = useState(null);
     const {data, setData} = useSurveyData();
 

@@ -12,11 +12,9 @@ import {useSurveyData} from "../../SurveyDataContext";
 
 function Week2Intro1() {
 
-    const [hint, setHint] = useState('');
+    const [studentHint, setStudentHint] = useState('');
     const [showInstructions, setShowInstructions] = useState(false);
-
     const [startTime, setStartTime] = useState(null);
-    const [warningCount, setWarningCount] = useState(0);
     const {data, setData} = useSurveyData();
 
     useEffect(() => {
@@ -34,11 +32,10 @@ function Week2Intro1() {
 
         setData({
             ...data,
-            intro: {
-                ...data.intro,
+            introPage: {
+                ...data.introPage,
                 timeSpent: timeSpentCalculated,
-                warningCount,
-                hint,
+                studentHint: studentHint,
             }
         });
 
@@ -139,8 +136,8 @@ function Week2Intro1() {
                         will be similar to this.) </i>
                 </Typography>
                 <TextareaAutosize
-                    value={hint}
-                    onChange={(e) => setHint(e.target.value)}
+                    value={studentHint}
+                    onChange={(e) => setStudentHint(e.target.value)}
                     placeholder="Write your hint here..."
                     rows="4"
                     style={{

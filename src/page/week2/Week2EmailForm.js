@@ -26,13 +26,13 @@ function Week2EmailForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const student_id = email.substring(0, email.indexOf("@"));
-        const hashedValue = hashEmail(student_id);
+        const studentId = email.substring(0, email.indexOf("@"));
+        const hashedValue = hashEmail(studentId);
         const route = ['/week2-intro1', '/week2-intro2', '/week2-intro3'][hashedValue % 3];
 
         setData({
             ...data,
-            student_id: student_id,
+            studentId: studentId,
         });
 
         navigate(route); // navigate to the calculated route
