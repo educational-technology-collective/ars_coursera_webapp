@@ -20,7 +20,7 @@ export const submitStudentData = async (data) => {
 
 export const fetchCodeHint = async () => {
     try {
-        const response = await axios.get('https://gsbtynpaeg.execute-api.us-east-1.amazonaws.com/week2_incorrect_code');
+        const response = await axios.get('https://htxfzhw4ee.execute-api.us-east-1.amazonaws.com/incorrect_code');
         return response.data;
     } catch (error) {
         console.error("There was an error fetching the data", error);
