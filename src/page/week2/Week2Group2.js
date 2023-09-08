@@ -3,11 +3,12 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ToggleButtonGroup from '../../components/ToggleButtonGroup';
 import CodeDisplay from '../../components/CodeDisplay';
 import ChatGPTHint from '../../components/ChatGPTHint';
 import EditorForm from '../../components/EditorForm';
+import AttentionDialog from "../../components/AttentionDialog";
 import {
     submitStudentData,
     fetchCodeHint,
@@ -16,13 +17,6 @@ import {
 } from '../../utils/api';
 import Typography from '@mui/material/Typography';
 import {useSurveyData} from "../../SurveyDataContext";
-import {
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle
-} from "@mui/material";
 
 function Week2Group2() {
     const navigate = useNavigate();
@@ -277,23 +271,7 @@ function Week2Group2() {
                 </Grid>
             )}
 
-            <Dialog
-                open={openDialog}
-                onClose={() => setOpenDialog(false)}
-            >
-                <DialogTitle>{"Attention!"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Please provide a more detailed hint.
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => setOpenDialog(false)}
-                            color="primary">
-                        Okay
-                    </Button>
-                </DialogActions>
-            </Dialog>
+            <AttentionDialog openDialog={openDialog} setOpenDialog={setOpenDialog}/>
         </Stack>
     );
 }

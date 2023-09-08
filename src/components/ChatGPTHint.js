@@ -1,7 +1,9 @@
 import React from 'react';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import Avatar from '@mui/material/Avatar';
+import {
+    Typography,
+    Paper,
+    Avatar
+} from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
 
 function ChatGPTHint({ showChatGPTHint, ChatGPTHint }) {
