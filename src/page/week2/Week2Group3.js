@@ -174,8 +174,8 @@ function Week2Group3() {
                         it.
                     {
                         ifCorrectCode
-                            ? "You can compare with Solution B, which is the correct solution that you submitted."
-                            : "You can compare with Solution B, which is correct."
+                            ? " You can compare with Solution B, which is the correct solution that you submitted. "
+                            : " You can compare with Solution B, which is correct. "
                     }</b>
                     Assume that all the relevant libraries such as pandas and
                     NumPy are already imported, even if you don’t see that in

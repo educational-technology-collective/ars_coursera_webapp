@@ -60,7 +60,7 @@ function Week2Group1() {
             } else {
                 setCorrectCodeArray(
                     [
-                                            "def chickenpox_by_sex():\n",
+                        "def chickenpox_by_sex():\n",
                     "    ### BEGIN SOLUTION\n",
                     "    def answer_chickenpox_by_sex():\n",
                     "        import pandas as pd\n",
@@ -179,8 +179,8 @@ function Week2Group1() {
                     it.
                 {
                     ifCorrectCode
-                        ? "You can compare with Solution B, which is the correct solution that you submitted."
-                        : "You can compare with Solution B, which is correct."
+                        ? " You can compare with Solution B, which is the correct solution that you submitted. "
+                        : " You can compare with Solution B, which is correct. "
                 }</b>
                 Assume that all the relevant libraries such as pandas and
                 NumPy are already imported, even if you don’t see that in
