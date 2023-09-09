@@ -19,7 +19,11 @@ export const submitStudentData = async (data) => {
 
 export const fetchCodeHint = async (studentId) => {
     try {
-        const response = await axios.get('https://htxfzhw4ee.execute-api.us-east-1.amazonaws.com/incorrect_code');
+        const response = await axios.get('https://htxfzhw4ee.execute-api.us-east-1.amazonaws.com/incorrect_code', {
+            params: {
+                studentId
+            }
+        });
         return response.data;
     } catch (error) {
         console.error("There was an error fetching the data", error);
