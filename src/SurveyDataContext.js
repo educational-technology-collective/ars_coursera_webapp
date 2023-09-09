@@ -8,9 +8,9 @@ export function useSurveyData() {
 
 export function SurveyDataProvider({ children }) {
   const [data, setData] = useState({
-    email: '',
-    intro: {},
-    page: {}
+    studentId: '',
+    introPage: {},
+    mainActivityPage: {}
   });
 
   return (

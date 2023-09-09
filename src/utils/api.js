@@ -17,7 +17,7 @@ export const submitStudentData = async (data) => {
     }
 };
 
-export const fetchCodeHint = async () => {
+export const fetchCodeHint = async (studentId) => {
     try {
         const response = await axios.get('https://htxfzhw4ee.execute-api.us-east-1.amazonaws.com/incorrect_code');
         return response.data;

@@ -81,7 +81,7 @@ function Week2Group2() {
                 );
             }
 
-            const codeHint = await fetchCodeHint();
+            const codeHint = await fetchCodeHint(studentId);
             if (codeHint) {
                 setIncorrectCodeArray(codeHint["source"]);
                 setChatGPTHint(codeHint["chatGPT_hint"]);
