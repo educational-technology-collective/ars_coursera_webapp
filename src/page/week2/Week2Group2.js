@@ -103,7 +103,13 @@ function Week2Group2() {
 
     const handleInitialSubmit = (event) => {
         event.preventDefault();
-        setShowSecondPart(true);
+
+        if (hint.length > 50) {
+            setShowSecondPart(true);
+        } else {
+            setOpenDialog(true);
+            setWarningCount(warningCount + 1);
+        }
     };
 
     const handleFinalSubmit = (event) => {
@@ -117,6 +123,7 @@ function Week2Group2() {
             const incorrectCode = incorrectCodeArray.join("");
             setData({
                 ...data,
+                group: 2,
                 mainActivityPage: {
                     ...data.mainActivityPage,
                     chatGPTHint: chatGPTHint,

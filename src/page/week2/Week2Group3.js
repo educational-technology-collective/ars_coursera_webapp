@@ -98,6 +98,7 @@ function Week2Group3() {
             const incorrectCode = incorrectCodeArray.join("");
             setData({
                 ...data,
+                group: 3,
                 mainActivityPage: {
                     ...data.mainActivityPage,
                     chatGPTHint: "",
