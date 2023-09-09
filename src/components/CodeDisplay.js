@@ -8,7 +8,7 @@ function CodeDisplay({code, title}) {
         <div>
             <div>
                 <Typography variant="h6" component="h6" align='center'>{title}</Typography>
-                <SyntaxHighlighter language="python" style={materialLight}>
+                <SyntaxHighlighter language="python" style={materialLight} wrapLongLines={true}>
                     {code}
                 </SyntaxHighlighter>
             </div>
