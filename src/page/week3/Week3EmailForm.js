@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, {useState} from "react";
+import {useNavigate} from 'react-router-dom';
 import {
     Button,
     TextField,
@@ -8,7 +8,7 @@ import {
     Paper,
     Container
 } from '@mui/material';
-import { useSurveyData } from "../../SurveyDataContext";
+import {useSurveyData} from "../../SurveyDataContext";
 
 function hashEmail(email) {
     let hash = 0;
@@ -21,17 +21,19 @@ function hashEmail(email) {
 
 function Week3EmailForm() {
     const [email, setEmail] = useState('');
-    const { data, setData } = useSurveyData();
+    const {data, setData} = useSurveyData();
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const hashedValue = hashEmail(email);
+        const studentId = email.substring(0, email.indexOf("@"));
+        const hashedValue = hashEmail(studentId);
         const route = ['/week3-intro1', '/week3-intro2', '/week3-intro3'][hashedValue % 3];
 
         setData({
             ...data,
-            email: email,
+            studentId: studentId,
+            assignment: "assignment2"
         });
 
         navigate(route); // navigate to the calculated route
@@ -39,7 +41,7 @@ function Week3EmailForm() {
 
     return (
         <Container component={Paper} maxWidth="sm"
-                   style={{ padding: '24px', marginTop: '50px' }}>
+                   style={{padding: '24px', marginTop: '50px'}}>
             <Typography variant="h5" gutterBottom>
                 Please enter your University of Michigan email
             </Typography>
@@ -59,7 +61,7 @@ function Week3EmailForm() {
                     variant="contained"
                     color="primary"
                     type="submit"
-                    style={{ marginTop: '20px' }}
+                    style={{marginTop: '20px'}}
                 >
                     Submit
                 </Button>
