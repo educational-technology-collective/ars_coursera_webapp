@@ -33,7 +33,7 @@ function Week3EmailForm() {
         setData({
             ...data,
             studentId: studentId,
-            assignment: "assignment2"
+            assignment: "assignment3"
         });
 
         navigate(route); // navigate to the calculated route

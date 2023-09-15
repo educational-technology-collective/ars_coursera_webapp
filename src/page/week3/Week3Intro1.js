@@ -1,45 +1,47 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {
     Button,
     Stack,
     Typography,
     Box,
-    Grid,
     TextareaAutosize,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle
 } from '@mui/material';
+import {useSurveyData} from "../../SurveyDataContext";
 
 
 function Week3Intro1() {
 
-    const [hint, setHint] = useState('');
     const [showInstructions, setShowInstructions] = useState(false);
-    const [openDialog, setOpenDialog] = useState(false);
+    const [startTime, setStartTime] = useState(null);
+    const {data, setData} = useSurveyData();
+
+    useEffect(() => {
+        // set start time when the component mounts
+        setStartTime(Date.now());
+        // cleanup function to stop timer when component unmounts
+        return () => setStartTime(null);
+    }, []);
 
     const handleSubmit = () => {
-        if (hint.length > 10) {
-            setShowInstructions(true);
-        } else {
-            setOpenDialog(true);
-        }
+        const timeSpent = Date.now() - startTime;
+        const timeSpentCalculated = timeSpent / 1000;
+
+        setData({
+            ...data,
+            introPage: {
+                ...data.introPage,
+                timeSpent: timeSpentCalculated,
+                studentHint: "",
+            }
+        });
     };
 
     return (
         <Stack spacing={2}>
-            <Box p={2}>
+            <Box p={3}>
                 <Typography variant="h4" gutterBottom>
-                    Assignment 3 Reflection Instruction
-                </Typography>
-                <Typography paragraph style={{fontSize: 18}}>
-                    Well done on submitting two of the four programming
-                    assignments!
-                    Before moving on to the next module, here is a reflection
-                    assignment to revise some of the concepts learned so far.
+                    Reflection 3
                 </Typography>
                 <Typography paragraph style={{fontSize: 18}}>
                     In this assignment, you will identify the mistakes in an
@@ -103,12 +105,12 @@ function Week3Intro1() {
                     incorrect solution to this question:
                 </Typography>
                 <img
-                    src="https://raw.githubusercontent.com/maizehsu/FigureBed/main/asset/2023/08/22/20230822095525.png"
+                    src="https://raw.githubusercontent.com/maizehsu/FigureBed/main/asset/2023/09/07/20230907235228.png"
                     alt="Example Solution"
                     style={{width: '100%'}}/>
             </Box>
 
-            <Box p={2.5}>
+            <Box p={3}>
                 <Typography paragraph style={{fontSize: 18}}>A good hint for
                     Solution A would
                     be:</Typography>
@@ -123,7 +125,7 @@ function Week3Intro1() {
                     for the computation of a1.
                 </Typography>
                 <Link to="/week3-group1">
-                    <Button variant="contained" color="primary">
+                    <Button variant="contained" color="primary" onClick={handleSubmit}>
                         Next
                     </Button>
                 </Link>
