@@ -54,21 +54,21 @@ function Week2Group3() {
             } else {
                 setCorrectCodeArray(
                     [
-                                            "def chickenpox_by_sex():\n",
-                    "    ### BEGIN SOLUTION\n",
-                    "    def answer_chickenpox_by_sex():\n",
-                    "        import pandas as pd\n",
-                    "        import numpy as np\n",
-                    "\n",
-                    "        df=pd.read_csv(\"assets/NISPUF17.csv\")\n",
-                    "\n",
-                    "        male=len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
-                    "        female=len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
-                    "        \n",
-                    "        return {\"male\": male, \"female\": female}\n",
-                    "\n",
-                    "    return answer_chickenpox_by_sex()\n",
-                    "    ### END SOLUTION"
+                        "def chickenpox_by_sex():\n",
+                        "    ### BEGIN SOLUTION\n",
+                        "    def answer_chickenpox_by_sex():\n",
+                        "        import pandas as pd\n",
+                        "        import numpy as np\n",
+                        "\n",
+                        "        df=pd.read_csv(\"assets/NISPUF17.csv\")\n",
+                        "\n",
+                        "        male=len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
+                        "        female=len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
+                        "        \n",
+                        "        return {\"male\": male, \"female\": female}\n",
+                        "\n",
+                        "    return answer_chickenpox_by_sex()\n",
+                        "    ### END SOLUTION"
                     ]
                 );
             }
@@ -115,8 +115,6 @@ function Week2Group3() {
             setOpenDialog(true);
             setWarningCount(warningCount + 1);
         }
-
-
     };
 
     useEffect(() => {
@@ -173,16 +171,15 @@ function Week2Group3() {
                 <Typography paragraph style={{fontSize: 18}}>
                     <b>Please go through Solution A and identify the mistakes in
                         it.
-                    {
-                        ifCorrectCode
-                            ? " You can compare with Solution B, which is the correct solution that you submitted. "
-                            : " You can compare with Solution B, which is correct. "
-                    }</b>
+                        {
+                            ifCorrectCode
+                                ? " You can compare with Solution B, which is the correct solution that you submitted. "
+                                : " You can compare with Solution B, which is correct. "
+                        }</b>
                     Assume that all the relevant libraries such as pandas and
                     NumPy are already imported, even if you don’t see that in
                     Solution A.
                 </Typography>
-
             </Box>
 
             <Grid container spacing={2} bgcolor="#f5f5f5">

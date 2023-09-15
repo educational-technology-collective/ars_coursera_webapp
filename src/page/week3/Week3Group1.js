@@ -51,7 +51,7 @@ function Week3Group1() {
             const ifStudentCodeIsCorrect = await checkIfStudentCodeIsCorrect(studentId, "assignment3");
             if (ifStudentCodeIsCorrect) {
                 setIfCorrectCode(true);
-                const correctCode = await fetchStudentCorrectCode(studentId, "cell-a0a9e6fe67698002", "assignment3");
+                const correctCode = await fetchStudentCorrectCode(studentId, "cell-8c3d74335c0d489a", "assignment3");
                 console.log("correctCode: ", correctCode);
                 if (correctCode) {
                     setCorrectCodeArray(correctCode);

@@ -93,7 +93,6 @@ function Week2Group1() {
         setTimeEntered(Date.now());
     }, []);
 
-
     const handleSubmit = (event) => {
         event.preventDefault();
 
