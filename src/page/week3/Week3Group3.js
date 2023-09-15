@@ -111,29 +111,31 @@ function Week3Group3() {
                     chatGPTHintButtonClicks: 0
                 }
             });
+
+            navigate("/survey");
         } else {
             setOpenDialog(true);
             setWarningCount(warningCount + 1);
         }
     };
 
-    useEffect(() => {
-        if (data && data.mainActivityPage && data.mainActivityPage.studentHint) {  // Check that the studentHint is set
-            submitStudentData(data)
-                .then(response => {
-                    console.log("Feedback submitted successfully!")
-                    console.log("data: ", data)
-                    console.log(response);
-                    navigate("/thankyou");
-                })
-                .catch(error => {
-                    console.log("Error submitting feedback!");
-                    console.log("data: ", data)
-                    console.log(error);
-                    navigate("/thankyou");
-                });
-        }
-    }, [data]);
+    // useEffect(() => {
+    //     if (data && data.mainActivityPage && data.mainActivityPage.studentHint) {  // Check that the studentHint is set
+    //         submitStudentData(data)
+    //             .then(response => {
+    //                 console.log("Feedback submitted successfully!")
+    //                 console.log("data: ", data)
+    //                 console.log(response);
+    //                 navigate("/thankyou");
+    //             })
+    //             .catch(error => {
+    //                 console.log("Error submitting feedback!");
+    //                 console.log("data: ", data)
+    //                 console.log(error);
+    //                 navigate("/thankyou");
+    //             });
+    //     }
+    // }, [data]);
 
     return (
         <Stack spacing={2}>

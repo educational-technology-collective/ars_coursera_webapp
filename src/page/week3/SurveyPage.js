@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Button,
     Stack,
@@ -12,8 +12,14 @@ import {
     TableRow,
     Radio
 } from '@mui/material';
+import {useNavigate} from 'react-router-dom';
+import {submitStudentData} from "../../utils/api";
+import {useSurveyData} from "../../SurveyDataContext";
 
 function SurveyPage() {
+    const navigate = useNavigate();
+    const {data, setData} = useSurveyData();
+
     const [answers, setAnswers] = useState({
         q1: '',
         q2: '',
@@ -37,9 +43,30 @@ function SurveyPage() {
     };
 
     const handleSubmit = () => {
-        // Process answers...
+        setData({
+                ...data,
+                survey: answers
+            });
         console.log(answers);
     };
+
+    useEffect(() => {
+        if (data && data.survey) {  // Check that the studentHint is set
+            submitStudentData(data)
+                .then(response => {
+                    console.log("Feedback submitted successfully!")
+                    console.log("data: ", data)
+                    console.log(response);
+                    navigate("/thankyou");
+                })
+                .catch(error => {
+                    console.log("Error submitting feedback!");
+                    console.log("data: ", data)
+                    console.log(error);
+                    navigate("/thankyou");
+                });
+        }
+    }, [data]);
 
     return (
         <Stack spacing={2}>
