@@ -51,10 +51,10 @@ function Week2Group2() {
             console.log("studentId: ", studentId);
 
             // First check if the student code is correct, if it is, call the backend to fetch the correct code
-            const ifStudentCodeIsCorrect = await checkIfStudentCodeIsCorrect(studentId);
+            const ifStudentCodeIsCorrect = await checkIfStudentCodeIsCorrect(studentId, "assignment2");
             if (ifStudentCodeIsCorrect) {
                 setIfCorrectCode(true);
-                const correctCode = await fetchStudentCorrectCode(studentId, "cell-a0a9e6fe67698002");
+                const correctCode = await fetchStudentCorrectCode(studentId, "cell-a0a9e6fe67698002", "assignment2");
                 console.log("correctCode: ", correctCode);
                 if (correctCode) {
                     setCorrectCodeArray(correctCode);
@@ -81,7 +81,7 @@ function Week2Group2() {
                 );
             }
 
-            const codeHint = await fetchCodeHint(studentId);
+            const codeHint = await fetchCodeHint(studentId, "assignment2");
             if (codeHint) {
                 setIncorrectCodeArray(codeHint["source"]);
                 setChatGPTHint(codeHint["chatGPT_hint"]);
