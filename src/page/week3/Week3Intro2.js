@@ -52,7 +52,7 @@ function Week3Intro2() {
                     </b>
                 </Typography>
                 <Typography paragraph style={{fontSize: 18}}>
-                    In this task, you will first write a hint on your own. Then,
+                    Similar to Reflection 2, you will first write a hint on your own. Then,
                     to help you improve your hint, you will be shown a hint
                     written for the same incorrect code by <b>ChatGPT</b>, a
                     popular AI chatbot that uses natural language processing to

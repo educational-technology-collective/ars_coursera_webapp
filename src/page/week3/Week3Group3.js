@@ -54,21 +54,24 @@ function Week3Group3() {
             } else {
                 setCorrectCodeArray(
                     [
-                        "def chickenpox_by_sex():\n",
-                        "    ### BEGIN SOLUTION\n",
-                        "    def answer_chickenpox_by_sex():\n",
-                        "        import pandas as pd\n",
-                        "        import numpy as np\n",
+                        "def fine_per_plates():\n",
+                        "    df = load_ticket_data()\n",
+                        "    plate = {}\n",
+                        "    new_df = df[df['State'] == 'MI']\n",
+                        "    license_plate = new_df['Plate']\n",
                         "\n",
-                        "        df=pd.read_csv(\"assets/NISPUF17.csv\")\n",
+                        "    plates_dict = {}\n",
+                        "    license_one = license_plate.str.count(r'^[a-zA-Z]{3}[0-9]{4}$').sum()\n",
+                        "    plates_dict['ABC1234'] = license_one\n",
+                        "    \n",
+                        "    license_two = license_plate.str.count(r'^[a-zA-Z]{3}[0-9]{3}$').sum()\n",
+                        "    plates_dict['ABC123'] = license_two\n",
                         "\n",
-                        "        male=len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==1) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
-                        "        female=len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==1) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())/len(df.where((df[\"SEX\"]==2) & (df[\"HAD_CPOX\"]==2) & (df[\"P_NUMVRC\"]>0))[[\"SEX\",\"HAD_CPOX\",\"P_NUMVRC\"]].dropna())\n",
-                        "        \n",
-                        "        return {\"male\": male, \"female\": female}\n",
+                        "    license_three = license_plate.str.count(r'^[0-9]{3}[a-zA-Z]{3}$').sum()\n",
+                        "    plates_dict['123ABC'] = license_three\n",
                         "\n",
-                        "    return answer_chickenpox_by_sex()\n",
-                        "    ### END SOLUTION"
+                        "    plates_dict['vanity'] = len(license_plate) - (license_one + license_two + license_three)\n",
+                        "    return plates_dict\n",
                     ]
                 );
             }

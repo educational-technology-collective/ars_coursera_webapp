@@ -60,17 +60,7 @@ function Week3Group1() {
                 setCorrectCodeArray(
                     [
                         "def fine_per_plates():\n",
-                        "    import xlrd\n",
-                        "    import pandas as pd\n",
-                        "    import numpy as np\n",
-                        "    import re\n",
-                        "\n",
-                        "    # Filter all warnings. If you would like to see the warnings, please comment the two lines below.\n",
-                        "    import warnings\n",
-                        "    warnings.filterwarnings('ignore')\n",
-                        "    \n",
                         "    df = load_ticket_data()\n",
-                        "    ### BEGIN SOLUTION\n",
                         "    plate = {}\n",
                         "    new_df = df[df['State'] == 'MI']\n",
                         "    license_plate = new_df['Plate']\n",
@@ -87,7 +77,6 @@ function Week3Group1() {
                         "\n",
                         "    plates_dict['vanity'] = len(license_plate) - (license_one + license_two + license_three)\n",
                         "    return plates_dict\n",
-                        "    ### END SOLUTION"
                     ]
                 );
             }
@@ -137,24 +126,6 @@ function Week3Group1() {
             setWarningCount(warningCount + 1);
         }
     };
-
-    // useEffect(() => {
-    //     if (data && data.mainActivityPage && data.mainActivityPage.studentHint) {  // Check that the studentHint is set
-    //         submitStudentData(data)
-    //             .then(response => {
-    //                 console.log("Feedback submitted successfully!")
-    //                 console.log("data: ", data)
-    //                 console.log(response);
-    //                 navigate("/thankyou");
-    //             })
-    //             .catch(error => {
-    //                 console.log("Error submitting feedback!");
-    //                 console.log("data: ", data)
-    //                 console.log(error);
-    //                 navigate("/thankyou");
-    //             });
-    //     }
-    // }, [data]);
 
     return (
         <Stack spacing={2}>

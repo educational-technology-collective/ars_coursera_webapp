@@ -41,13 +41,7 @@ function Week3Intro3() {
                     Reflection 3
                 </Typography>
                 <Typography paragraph style={{fontSize: 18}}>
-                    Well done on submitting two of the four programming
-                    assignments!
-                    Before moving on to the next module, here is a reflection
-                    assignment to revise some of the concepts learned so far.
-                </Typography>
-                <Typography paragraph style={{fontSize: 18}}>
-                    In this assignment, you will identify the mistakes in an
+                    Similar to Reflection 2, you will identify the mistakes in an
                     incorrect solution to
                     <b> Question 4 from Assignment 3 </b>
                     and
