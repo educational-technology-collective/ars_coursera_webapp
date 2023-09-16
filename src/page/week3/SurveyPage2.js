@@ -31,7 +31,7 @@ function SurveyPage2() {
         'I would like to engage in this activity in future courses.',
         'I found this activity helpful for practicing data-manipulation problem-solving skills.',
         'I found this activity helpful for practicing debugging skills related to data manipulation.',
-        'I would like to engage in this activity in future courses.'
+        'This exercise encouraged me to think critically about the accuracy and appropriateness of responses provided by ChatGPT.'
     ];
 
     const choices = ["Strongly disagree", "Disagree", "Neither agree nor disagree", "Agree", "Strongly Agree"];
@@ -76,10 +76,10 @@ function SurveyPage2() {
                     Feedback on the Reflection Activities
                 </Typography>
                 <Typography paragraph style={{ fontSize: 18 }}>
-                    <b>We are constantly working towards improving students' learning experience in this Data Manipulation course. Your feedback on these reflection assignments would be incredibly valuable in understanding its impact and how it can be refined for future iterations.</b>
+                    We are constantly working towards improving students' learning experience in this Data Manipulation course. Your feedback on these reflection assignments would be incredibly valuable in understanding its impact and how it can be refined for future iterations.
                 </Typography>
                 <Typography paragraph style={{ fontSize: 18 }}>
-                    For each of the following statements, please indicate your level of agreement:
+                    <b>For each of the following statements, please indicate your level of agreement:</b>
                 </Typography>
 
                 <Table>

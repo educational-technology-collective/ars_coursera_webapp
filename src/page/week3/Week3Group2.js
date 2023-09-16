@@ -147,24 +147,6 @@ function Week3Group2() {
 
     };
 
-    // useEffect(() => {
-    //     if (data && data.mainActivityPage && data.mainActivityPage.studentRevisedHint) {  // Check that the studentHint is set
-    //         submitStudentData(data)
-    //             .then(response => {
-    //                 console.log("Feedback submitted successfully!")
-    //                 console.log("data: ", data)
-    //                 console.log(response);
-    //                 navigate("/thankyou");
-    //             })
-    //             .catch(error => {
-    //                 console.log("Error submitting feedback!");
-    //                 console.log("data: ", data)
-    //                 console.log(error);
-    //                 navigate("/thankyou");
-    //             });
-    //     }
-    // }, [data]);
-
     return (
         <Stack spacing={2}>
             <Box p={3}>

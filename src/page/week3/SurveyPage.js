@@ -75,10 +75,10 @@ function SurveyPage() {
                     Feedback on the Reflection Activities
                 </Typography>
                 <Typography paragraph style={{ fontSize: 18 }}>
-                    <b>We are constantly working towards improving students' learning experience in this Data Manipulation course. Your feedback on these reflection assignments would be incredibly valuable in understanding its impact and how it can be refined for future iterations.</b>
+                    We are constantly working towards improving students' learning experience in this Data Manipulation course. Your feedback on these reflection assignments would be incredibly valuable in understanding its impact and how it can be refined for future iterations.
                 </Typography>
                 <Typography paragraph style={{ fontSize: 18 }}>
-                    For each of the following statements, please indicate your level of agreement:
+                    <b>For each of the following statements, please indicate your level of agreement:</b>
                 </Typography>
 
                 <Table>

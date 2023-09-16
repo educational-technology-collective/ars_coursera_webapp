@@ -41,16 +41,6 @@ function Week3Intro3() {
                     Reflection 3
                 </Typography>
                 <Typography paragraph style={{fontSize: 18}}>
-                    In this assignment, you will identify the mistakes in an
-                    incorrect solution to
-                    <b> Question 4 from Assignment 3 </b>
-                    and
-                    <b> write a hint such that someone who wrote the incorrect
-                        solution can use it to identify their mistake and fix
-                        their code.
-                    </b>
-                </Typography>
-                <Typography paragraph style={{fontSize: 18}}>
                     Similar to Reflection 2, you will identify the mistakes in an
                     incorrect solution to
                     <b> Question 4 from Assignment 3 </b>
