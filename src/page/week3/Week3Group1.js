@@ -120,7 +120,7 @@ function Week3Group1() {
                 }
             });
 
-            navigate("/survey");
+            navigate("/survey2");
         } else {
             setOpenDialog(true);
             setWarningCount(warningCount + 1);

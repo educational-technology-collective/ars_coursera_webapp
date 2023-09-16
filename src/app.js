@@ -17,6 +17,7 @@ import Week3Intro2 from './page/week3/Week3Intro2';
 import Week3Intro3 from './page/week3/Week3Intro3';
 
 import Survey from "./page/week3/SurveyPage";
+import SurveyPage2 from "./page/week3/SurveyPage2";
 import ThankYouPage from "./page/shared/ThankYouPage";
 
 import {SurveyDataProvider} from "./SurveyDataContext";
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
         {path: '/week3-intro3', element: <SurveyDataProvider><Week3Intro3></Week3Intro3></SurveyDataProvider>},
         {path: '/week3', element: <SurveyDataProvider><Week3EmailForm></Week3EmailForm></SurveyDataProvider>},
         {path: '/survey', element: <SurveyDataProvider><Survey></Survey></SurveyDataProvider>},
+        {path: '/survey2', element: <SurveyDataProvider><SurveyPage2></SurveyPage2></SurveyDataProvider>},
         {path: '/thankyou', element: <SurveyDataProvider><ThankYouPage></ThankYouPage></SurveyDataProvider>},
         {path: '/', element: <div> <Link to="/week2">Week 2</Link> <Link to="/week3">Week 3</Link> </div>}
     ]

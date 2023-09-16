@@ -41,6 +41,16 @@ function Week3Intro3() {
                     Reflection 3
                 </Typography>
                 <Typography paragraph style={{fontSize: 18}}>
+                    In this assignment, you will identify the mistakes in an
+                    incorrect solution to
+                    <b> Question 4 from Assignment 3 </b>
+                    and
+                    <b> write a hint such that someone who wrote the incorrect
+                        solution can use it to identify their mistake and fix
+                        their code.
+                    </b>
+                </Typography>
+                <Typography paragraph style={{fontSize: 18}}>
                     Similar to Reflection 2, you will identify the mistakes in an
                     incorrect solution to
                     <b> Question 4 from Assignment 3 </b>
@@ -80,9 +90,8 @@ function Week3Intro3() {
                     </Typography>
                 </Box>
                 <Typography paragraph style={{fontSize: 18}}>
-                    <b> Let's go through a simple example </b>
-                    to learn more about this exercise. Consider the first
-                    question
+                    <b> Here’s the same example from Reflection 2, to demonstrate what a good hint looks like. </b>
+                    Consider the first  question
                     of assignment two, which required you to write a function
                     called
                     <code> ‘proportion_of_education’</code>, which returns the

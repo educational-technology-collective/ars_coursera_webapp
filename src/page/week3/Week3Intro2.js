@@ -91,9 +91,8 @@ function Week3Intro2() {
                     </Typography>
                 </Box>
                 <Typography paragraph style={{fontSize: 18}}>
-                    <b> Let's go through a simple example </b>
-                    to learn more about this exercise. Consider the first
-                    question
+                    <b> Here’s the same example from Reflection 2, to demonstrate what a good hint looks like. </b>
+                    Consider the first  question
                     of assignment two, which required you to write a function
                     called
                     <code> ‘proportion_of_education’</code>, which returns the

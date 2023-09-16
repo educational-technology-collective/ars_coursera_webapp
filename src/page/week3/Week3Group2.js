@@ -139,7 +139,7 @@ function Week3Group2() {
                 }
             });
 
-            navigate("/survey")
+            navigate("/survey2")
         } else {
             setOpenDialog(true);
             setWarningCount(warningCount + 1);
